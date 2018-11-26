@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      .a {
+        fill: #534741;
+      }
+
+      .b {
+        fill: #009245;
+      }
+
+      .c {
+        fill: #3fa9f5;
+      }
+    </style>
+  </defs>
+  <title>N4</title>
+  <g>
+    <polygon class="a" points="0 154 57 0 112 154 0 154"/>
+    <polygon class="b" points="43 154 100 0 155 154 43 154"/>
+  </g>
+  <polygon class="a" points="0 152 134 0 149 152 0 152"/>
+  <polygon class="a" points="0 155 79 0 155 155 0 155"/>
+  <g>
+    <polygon class="a" points="0 155 55.41 0 108.71 155 0 155"/>
+    <polygon class="b" points="46.29 155 101.7 0 155 155 46.29 155"/>
+    <polygon class="c" points="23 155 78 65 131.71 155 23 155"/>
+  </g>
+  <g>
+    <polygon class="a" points="0 155 33 35.17 108.71 155 0 155"/>
+    <polygon class="b" points="46.29 155 132 0 155 155 46.29 155"/>
+    <polygon class="c" points="23 155 78 37.77 131.71 155 23 155"/>
+  </g>
+  <polygon class="a" points="0 155.26 19.8 60 127.8 0 155 155.26 0 155.26"/>
+  <polygon class="a" points="0 155 34 83 145 0 155 155 0 155"/>
+  <polygon class="a" points="0 149 34 77 156 0 155 149 0 149"/>
+  <polygon class="a" points="155.5 152.5 0 59 77 0 155.5 152.5"/>
+  <polygon class="a" points="0 116.26 11.8 60 119.8 0 147 155.26 0 116.26"/>
+  <polygon class="a" points="0 108.83 13 81.83 109.11 0 153.11 155 0 108.83"/>
+  <polygon class="a" points="0 91 0 46 154 0 153 149 0 91"/>
+  <polygon class="a" points="154.66 152.5 64 153.22 0 57.22 76.16 0 154.66 152.5"/>
+  <polygon class="a" points="0 116 11.8 59.74 88 0 146 56 147 155 52 155 0 116"/>
+  <polygon class="a" points="0 108.83 18.11 47 109.11 0 151.11 34 153.11 155 87.11 155 0 108.83"/>
+  <polygon class="a" points="0 96 0 51 113 0 151 61 122 155 73 155 0 96"/>
+  <polygon class="a" points="0 76.22 53 153.22 144 151.22 149 57.22 119 0 0 76.22"/>
+  <g>
+    <polygon class="a" points="0.65 56 0 155 58.48 155 59.13 56 70.61 38.94 38.34 0 0.65 56"/>
+    <polygon class="a" points="146.33 59.74 96.82 0 70.61 38.94 87.85 59.74 95.52 116 61.73 155 120.21 155 154 116 146.33 59.74"/>
+  </g>
+  <polygon class="a" points="153.11 108.83 135 47 44 0 2 34 0 155 66 155 153.11 108.83"/>
+  <polygon class="a" points="151 96 151 51 38 0 0 61 29 155 78 155 151 96"/>
+  <g>
+    <polygon class="a" points="154 155 64 155 0 59 77 0 154 155"/>
+    <polygon class="b" points="0 154 64 63 114.17 103.28 124.07 155 0 154"/>
+  </g>
+  <g>
+    <polygon class="a" points="7 116 18.8 59.74 95 0 153 56 154 155 59 155 7 116"/>
+    <polygon class="b" points="124.07 154 60.07 63 9.9 103.28 0 155 124.07 154"/>
+  </g>
+  <g>
+    <polygon class="a" points="0 108.83 18.11 47 109.11 0 151.11 34 153.11 155 87.11 155 0 108.83"/>
+    <polygon class="b" points="17.11 155 81.11 64 131.27 104.28 141.18 156 17.11 155"/>
+  </g>
+  <g>
+    <polygon class="a" points="0 96 0 51 113 0 151 61 122 155 73 155 0 96"/>
+    <polygon class="b" points="16 154 39 45 104 74 140.07 155 16 154"/>
+  </g>
+  <g>
+    <polygon class="a" points="0 152.5 155.5 59 78.5 0 0 152.5"/>
+    <polygon class="b" points="79.5 154 155.5 59 155.5 155 79.5 154"/>
+  </g>
+  <g>
+    <polygon class="a" points="146.69 92.09 134.89 35.84 27.2 0 0 155.26 146.69 92.09"/>
+    <polygon class="b" points="147 92.26 73 155.26 154 155.26 147 92.26"/>
+  </g>
+  <g>
+    <polygon class="a" points="122.8 57.06 109.8 30.06 44 0 0 155 122.8 57.06"/>
+    <polygon class="b" points="123 57 66 155 154 155 123 57"/>
+  </g>
+  <g>
+    <polygon class="a" points="154 63 154 18 0 0 1 149 154 63"/>
+    <polygon class="b" points="154 63 63 149 157 150 154 63"/>
+  </g>
+  <g>
+    <polygon class="a" points="83 152 15 0 0 152 83 152"/>
+    <polygon class="b" points="15 0 122 66 96 96 15 0"/>
+    <polygon class="c" points="96 96 50 152 151 153 96 96"/>
+  </g>
+  <g>
+    <polygon class="a" points="105.11 143 41.56 0 0 43 0 92 105.11 143"/>
+    <polygon class="b" points="41.56 0 152.78 55 121 85 41.56 0"/>
+    <polygon class="c" points="121 85 105.11 143 154 106 121 85"/>
+  </g>
+  <g>
+    <polygon class="a" points="86 155 18 0 0 155 86 155"/>
+    <polygon class="b" points="18 0 138.3 36.52 155 96 18 0"/>
+    <polygon class="c" points="155 96 86 155 155 155 155 96"/>
+  </g>
+  <g>
+    <polygon class="a" points="83 142 39 43 0 142 83 142"/>
+    <polygon class="c" points="152 0 50 142 151 143 152 0"/>
+  </g>
+</svg>
