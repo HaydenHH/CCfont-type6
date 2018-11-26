@@ -1,10 +1,10 @@
-var toneBank = 
+var toneBank =
 		[
 			{
 				"tone":['e','a']
 			},
 			{
-				"tone":['ā','ē','ō','ī','ū']	
+				"tone":['ā','ē','ō','ī','ū']
 			},
 			{
 				"tone":['á','é','ó','í','ú']
@@ -18,8 +18,8 @@ var toneBank =
 		]
 
 
-var seasonBank = 
-	
+var seasonBank =
+
 		{
 			"season":[
 				{
@@ -67,11 +67,11 @@ var seasonBank =
 					"num":3
 				}
 			]
-		}	
-	
+		}
 
 
-var locationBank = 
+
+var locationBank =
 	[
 		{
 			"type":"N",
@@ -102,7 +102,7 @@ var locationBank =
 					[
 						"风",
 					],
-					"num":4
+					"num":6
 				},
 				{
 					"symbol":
@@ -117,7 +117,7 @@ var locationBank =
 					[
 						"山",
 					],
-					"num":6,
+					"num":4,
 					"strong": true
 				},
 				{
@@ -126,7 +126,7 @@ var locationBank =
 						"木",
 					],
 					"num":7
-					
+
 				},
 				{
 					"symbol":
@@ -134,7 +134,7 @@ var locationBank =
 						"竹",
 					],
 					"num":8
-					
+
 				},
 				{
 					"symbol":
@@ -142,7 +142,7 @@ var locationBank =
 						"田",
 					],
 					"num":9
-					
+
 				},
 				{
 					"symbol":
@@ -150,7 +150,7 @@ var locationBank =
 						"石","钅","金"
 					],
 					"num":11
-					
+
 				},
 				{
 					"symbol":
@@ -158,7 +158,7 @@ var locationBank =
 						"禾",
 					],
 					"num":12
-					
+
 				},
 
 
@@ -306,21 +306,3 @@ var locationBank =
 		}
 
 	]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

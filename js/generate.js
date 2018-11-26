@@ -23,7 +23,7 @@ $(function(){
 		})
 	}
 
-	
+
 
 
 
@@ -133,10 +133,14 @@ $(function(){
 
 
 	}
+	getBasicFromSVG('A1')
 	getBasicFromSVG('B2')
 	getBasicFromSVG('N2')
 	getBasicFromSVG('N1')
 	getBasicFromSVG('N3')
+	getBasicFromSVG('N4')
+	getBasicFromSVG('N7')
+	getBasicFromSVG('N8')
 
 	function getPatternFromSVG(name){
 
@@ -581,7 +585,7 @@ $(function(){
 
 		var eleCount = d.length //键入的数量
 
-		var US = ['B2','N1','N2','N3']
+		var US = ['N8','N7']
 		//var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
