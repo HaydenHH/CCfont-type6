@@ -321,22 +321,7 @@ $(function(){
 			}
 	}
 
-	function sC(type){
-				//sorted color, 3 counts
-				var colorUseRange = new Array
-				var cc
-				if(type.c < 6){
-					cc = type.c
-
-				}else{
-					cc = 6
-				}
-				for(var i=0,l=cc;i<l;i++){
-					colorUseRange[i] = gColor(type.type,l)
-
-				}
-				return colorUseRange[rNF(colorUseRange.length)]
-			}
+	
 
 	function sB(type,count){
 				//sorted shape, max 10 counts
@@ -597,16 +582,37 @@ $(function(){
 			}//返回一个待选形状区间，由定义字符生成
 
 
+		function sC(type,count){
+				//sorted color, 3 counts
+				var colorUseRange = new Array
+				var cc
+				if(type.c < 10){
+					cc = count
+
+				}else{
+					cc = 10
+				}
+				for(var i=0,l=cc+1;i<l;i++){
+					colorUseRange[i] = gColor(type.type,cc)
+
+
+				}
+				return uni(colorUseRange)
+				//返回了一个选用的颜色区间
+			}
+
+		var ColorUsedList = sC(CType,eleCount)
+
 			
 
 
-			//createShapeGroup(x,i,all,type,sym,pT,pS)
 			for(var i=0,l=48;i<l;i++){
 				createShapeGroup(
 					 	sB(CB,2), 		//basic shape
 					 	i, 		//index
-					 	d.length,     //总数
+					 	eleCount,     //总数
 					 	CType,  // color type
+					 	ColorUsedList, // 选用的颜色数组
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
 					 	4,      //  size
@@ -650,7 +656,7 @@ $(function(){
 		}
 
 
-	function createPattern(type,size,pC,count,index,tone){
+	function createPattern(type,size,pC,pCList,count,index,tone){
 			if(size == NaN){
 				var size = 1
 			}
@@ -667,14 +673,14 @@ $(function(){
 				})
 				var b = s.paper.use(x1.shape).attr({
 					transform:pM(c*5,0,0.2),
-					fill:sC(pC),
+					fill:pCList[rNF(pCList.length)],
 					//strokeWidth:10,
 					opacity:0.7,
 					mixBlendMode:'overlay'
 					//stroke:sC(pC)
 				})
 				var p = s.paper.g(a,b).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 
 				}).pattern(c,c,c*5,c*10)
 
@@ -685,13 +691,13 @@ $(function(){
 			if(type==1){
 
 				var p = s.paper.circle(10,10,Usize*0.8).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,30,30)
 				return p
 				// 圆点
 			}else if(type==2){
 				var p = s.paper.rect(0,0,1+Usize*0.1,10).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,3,10)
 				return p
 				//竖线
@@ -699,7 +705,7 @@ $(function(){
 				var a = s.paper.rect(0,0,1,10)
 				var b = s.paper.rect(1.5,0,2,10)
 				var p = s.paper.g(a,b).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,5-Usize*0.2,10)
 				return p
 				//双竖线
@@ -710,7 +716,7 @@ $(function(){
 				})
 				
 				var p = s.paper.g(a).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,10,11)
 				return p
 				//菱形
@@ -719,7 +725,7 @@ $(function(){
 				var b = s.paper.rect(1.5,0,2,10)
 				var c = s.paper.rect(3,0,1,10)
 				var p = s.paper.g(a,b,c).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,5-Usize*0.2,10)
 				return p
 				//三竖线
@@ -729,7 +735,7 @@ $(function(){
 
 			}else if(type == 7){
 				var c = s.paper.circle(0.3,0.3,0.3).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0,0,index*0.01+1,index*0.01+1)
 				return c
 				//网点图
@@ -737,7 +743,7 @@ $(function(){
 				var a = s.paper.circle(0.4,0.4,0.2)
 				var b = s.paper.circle(0.8,0.8,0.2)
 				var c = s.g(a,b).attr({
-					fill:sC(pC)
+					fill:pCList[rNF(pCList.length)]
 				}).pattern(0.2,0.2,1,1)
 				return c
 				//网点图
@@ -748,7 +754,7 @@ $(function(){
 	}
 
 
-	function createShapeGroup(x,i,all,type,sym,tone,size,pT,pS){
+	function createShapeGroup(x,i,all,type,colorList,sym,tone,size,pT,pS){
 
 			function ToneToOpac(X){
 				var opc
@@ -770,7 +776,7 @@ $(function(){
 			
 				
 			var shape = s.use(x).attr({
-		 	fill: sC(type),
+		 	fill: colorList[rNF(colorList.length)],
 		 	mixBlendMode: 'multiply',
 		 	opacity:ToneToOpac(tone),
 		 	transform: trans(0,0,size,rN(2))
@@ -788,7 +794,7 @@ $(function(){
 		 //输出边框。重要
 
 			var pat = s.use(x).attr({
-		 	fill:createPattern(pT,pS,type,all,i,tone),
+		 	fill:createPattern(pT,pS,type,colorList,all,i,tone),
 		 	mixBlendMode: 'overlay',
 		 	opacity:ToneToOpac(tone),
 		 	transform: trans(rN(pT*1.5),rN(pT*0.5),size,rN(2))
