@@ -49,28 +49,6 @@ $(function(){
 	var PaI = new Object
 	// -------------load SVG basic--------------------------load SVG basic--------------------------load SVG basic-------------
 
-	// Snap.load("img/SVG/su.svg",function(su){
-	// 	s.append(su)
-
-	// 	 su01 = s.select('#su01')
-	// 	 su02 = s.select('#su02')
-	// 	 su03 = s.select('#su03')
-	// 	 basicG.push(su01,su02,su03)
-
-	// })
-
-	// Snap.load("img/SVG/lb1.svg",function(lb1){
-	// 	s.append(lb1)
-	// 	lb1 = s.select('#lb1')
-	// 	var lbG = lb1.selectAll('.eleG')
-
-
-	// 	 for(var i=0,l=lbG.length;i<l;i++){
-	// 	 	basicG.push(lbG[i])
-	// 	 }
-	// })
-
-
 
 	function getColorFromSVG(name){
 
@@ -108,7 +86,6 @@ $(function(){
 
 	function getBasicFromSVG(name){
 
-
 		Snap.load("img/SVG/" + name + ".svg",function(x){
 			s.select('defs').append(x)
 
@@ -139,8 +116,10 @@ $(function(){
 	getBasicFromSVG('N1')
 	getBasicFromSVG('N3')
 	getBasicFromSVG('N4')
+	getBasicFromSVG('N6')
 	getBasicFromSVG('N7')
 	getBasicFromSVG('N8')
+	getBasicFromSVG('N9')
 
 	function getPatternFromSVG(name){
 
@@ -236,47 +215,47 @@ $(function(){
 		myObj.splice(0)
 
 		for(var count = 0, allword = all.length; count < allword; count++){
-	       		for (var bankIndex = 0, bank = wordBank.length; bankIndex < bank; bankIndex++){
-	       			if (wordBank[bankIndex].word == all[count]) {
+	       	for (var bankIndex = 0, bank = wordBank.length; bankIndex < bank; bankIndex++){
+	       		if (wordBank[bankIndex].word == all[count]) {
 
-	       				var pinyinStr = new Array()
-	       			   pinyinStr.length = 0
-	       			   var pinyin = wordBank[bankIndex].pinyin;
-	       			   var symbolIndex = wordBank[bankIndex].strokes;
+	       			var pinyinStr = new Array()
+	       			  	pinyinStr.length = 0
+	       			var pinyin = wordBank[bankIndex].pinyin;
+	       			var symbolIndex = wordBank[bankIndex].strokes;
 
-	       			     allStroke.push(wordBank[bankIndex].strokes);
-	       			     allRadicals.push(wordBank[bankIndex].radicals)
+	       			    allStroke.push(wordBank[bankIndex].strokes);
+	       			    allRadicals.push(wordBank[bankIndex].radicals)
 
 
 
-	       			   if(wordBank[bankIndex].radicals == 'symbol'){
+	       			if(wordBank[bankIndex].radicals == 'symbol'){
 	       			   		//renderSymbol('symbol', symbolIndex)
-	       			   }
-	       			   for(var i = 0, l = pinyin.length; i < l; i++){
+	       			}
+	       		 	for(var i = 0, l = pinyin.length; i < l; i++){
 	       			   		pinyinStr.push(pinyin.charAt(i))
 
-	       			   }
+	       			}
 
 
-	       				if(isNaN(pinyinStr) == true){
-	       					for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
-	       						for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
-	       					    	for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
-	       					       		if(toneG > 0 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+	       			if(isNaN(pinyinStr) == true){
+	       				for(var toneG = 0, toneGl = toneBank.length; toneG < toneGl; toneG++){
+	       					for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
+	       					    for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
+	       					       	if(toneG > 0 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
 	       					       							// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
 	       					       							//renderTone('tone',[toneG + 1])
-	       					       			allTone.push([toneG])
-	       					       		}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
+	       					       		allTone.push([toneG])
+	       					       	}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
 	       					       							//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
 	       					       							//renderTone('toneLite',1)
-	       					       			allTone.push([toneG])
+	       					       		allTone.push([toneG])
 	       					       		}
 	       					       	}
 	       					    }
 	       					}
-	       				}else{
-	       					allTone.push('1')
-	       				}
+	       			}else{
+	       				allTone.push('1')
+	       			}
 
 
 
@@ -346,11 +325,11 @@ $(function(){
 				//sorted color, 3 counts
 				var colorUseRange = new Array
 				var cc
-				if(type.c < 3){
+				if(type.c < 6){
 					cc = type.c
 
 				}else{
-					cc = 4
+					cc = 6
 				}
 				for(var i=0,l=cc;i<l;i++){
 					colorUseRange[i] = gColor(type.type,l)
@@ -360,14 +339,14 @@ $(function(){
 			}
 
 	function sB(type,count){
-				//sorted shape, max 4 counts
+				//sorted shape, max 10 counts
 				var basicUseRange = new Array
 				var cc
-				if(count < 4){
+				if(count < 10){
 					cc = count
 
 				}else{
-					cc = 4
+					cc = 10
 				}
 				for(var i=0,l=cc;i<l;i++){
 					basicUseRange[i] = type[rNF(type.length)]
@@ -410,12 +389,6 @@ $(function(){
 
 				var report = new Object
 
-				if(shapeC < 4){
-					var useC = shapeC
-				}else{
-					var useC = 4
-				}
-
 				var uSL = new Array
 				for(var i=0;i<ELE.length;i++){
 					uSL.push(ELE[i].bs)
@@ -425,7 +398,7 @@ $(function(){
 				//report.usedShapes = uni(uSL)
 				report.colorStyle = cUse.id
 				report.useRadicals = rL
-				report.usedShapeCount = useC
+				//report.usedShapeCount = useC
 				report.opptionalShapeCount = shapeC
 				report.StyleList = CBL
 
@@ -585,7 +558,7 @@ $(function(){
 
 		var eleCount = d.length //键入的数量
 
-		var US = ['N8','N7']
+		var US = ['N1','N2','N3','N4','N5','N6','N8','N9','B2']
 		//var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
@@ -624,7 +597,7 @@ $(function(){
 			}//返回一个待选形状区间，由定义字符生成
 
 
-			//var baseEle = lbG[rNF(lbG.length)]
+			
 
 
 			//createShapeGroup(x,i,all,type,sym,pT,pS)
@@ -637,8 +610,8 @@ $(function(){
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
 					 	4,      //  size
-					 	rNF(8), 			//pattern type
-					 	dataCol[rNF(l)].stro 			//pattern ele size
+					 	8, 				//pattern type
+					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
 
 
@@ -711,45 +684,49 @@ $(function(){
 
 			if(type==1){
 
-				var p = s.paper.circle(10,10,Usize).attr({
+				var p = s.paper.circle(10,10,Usize*0.8).attr({
 					fill:sC(pC)
-				}).pattern(0,5,Usize,Usize)
+				}).pattern(0,0,30,30)
 				return p
+				// 圆点
 			}else if(type==2){
-				var a = s.paper.circle(0,10,Usize),
-					b = s.paper.circle(30,40,1.5*Usize)
-				var p = s.paper.g(a,b).attr({
+				var p = s.paper.rect(0,0,1+Usize*0.1,10).attr({
 					fill:sC(pC)
-				}).pattern(0,0,8*Usize,8*Usize)
-
+				}).pattern(0,0,3,10)
 				return p
+				//竖线
 			}else if(type==3){
-				var a = s.paper.rect(0,0,Usize,Usize*2)
-				var b = s.paper.rect(0,0,Usize*0.5,Usize*2)
+				var a = s.paper.rect(0,0,1,10)
+				var b = s.paper.rect(1.5,0,2,10)
 				var p = s.paper.g(a,b).attr({
 					fill:sC(pC)
-				}).pattern(0,0,8*Usize,8*Usize)
-
+				}).pattern(0,0,5-Usize*0.2,10)
 				return p
+				//双竖线
 			}else if(type==4){
-				var a = s.paper.rect(0,0,Usize*5,Usize*2)
-				var b = s.paper.rect(20,20,Usize*5,Usize*1)
-				var p = s.paper.g(a,b).attr({
+				
+				var a = s.paper.rect(0,0,10,5).attr({
+					transform: "skewY(30)"
+				})
+				
+				var p = s.paper.g(a).attr({
 					fill:sC(pC)
-				}).pattern(0,0,5*Usize,3*Usize)
-
+				}).pattern(0,0,10,11)
 				return p
+				//菱形
 			}else if(type==5){
-				var a = s.use(PaL[1].shape)
-				var b = s.use(PaL[1].shape)
-				var p = s.paper.g(a,b).attr({
+				var a = s.paper.rect(0,0,1,10)
+				var b = s.paper.rect(1.5,0,2,10)
+				var c = s.paper.rect(3,0,1,10)
+				var p = s.paper.g(a,b,c).attr({
 					fill:sC(pC)
-				}).pattern(0,0,2*Usize,1*Usize)
-
+				}).pattern(0,0,5-Usize*0.2,10)
 				return p
+				//三竖线
 			}else if(type == 6){
 
 				return  setPat(PaL[rNF(PaL.length)],Usize)
+
 			}else if(type == 7){
 				var c = s.paper.circle(0.3,0.3,0.3).attr({
 					fill:sC(pC)
@@ -790,13 +767,13 @@ $(function(){
 				return opc
 			}
 
-			var r1 = rNF(2),
-				r2 = r1 + rNF(5)
+			
+				
 			var shape = s.use(x).attr({
 		 	fill: sC(type),
 		 	mixBlendMode: 'multiply',
 		 	opacity:ToneToOpac(tone),
-		 	transform: trans(0,0,size,r1)
+		 	transform: trans(0,0,size,rN(2))
 		 })
 
 
@@ -813,7 +790,8 @@ $(function(){
 			var pat = s.use(x).attr({
 		 	fill:createPattern(pT,pS,type,all,i,tone),
 		 	mixBlendMode: 'overlay',
-		 	transform: trans(0,0,size,r1)
+		 	opacity:ToneToOpac(tone),
+		 	transform: trans(rN(pT*1.5),rN(pT*0.5),size,rN(2))
 		 })
 
 		ELE[i] = s.paper.g(shape,pat).attr({

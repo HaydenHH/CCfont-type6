@@ -93,7 +93,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"氵","water","river"
+						"氵","water","river","水"
 					],
 					"num":3
 				},
@@ -103,14 +103,6 @@ var locationBank =
 						"风",
 					],
 					"num":6
-				},
-				{
-					"symbol":
-					[
-						"水",
-					],
-					"num":5,
-					"strong": true
 				},
 				{
 					"symbol":
@@ -139,7 +131,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"田",
+						"田","禾"
 					],
 					"num":9
 
@@ -149,17 +141,17 @@ var locationBank =
 					[
 						"石","钅","金"
 					],
-					"num":11
+					"num":10
 
 				},
-				{
-					"symbol":
-					[
-						"禾",
-					],
-					"num":12
+				// {
+				// 	"symbol":
+				// 	[
+				// 		"禾",
+				// 	],
+				// 	"num":12
 
-				},
+				// },
 
 
 			]
