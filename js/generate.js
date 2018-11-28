@@ -610,7 +610,7 @@ $(function(){
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
 					 	4,      //  size
-					 	8, 				//pattern type
+					 	rNF(8), 				//pattern type
 					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
 
