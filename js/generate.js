@@ -2,7 +2,7 @@ $(function(){
 
 	var s = Snap('#svg1').attr({
 		width:window.screen.width,
-		height:window.screen.height,
+		height:window.screen.height+300,
 		viewBox: '-20 0 '  + 1440  + ' ' + 1000,
 		preserveAspectRatio: 'xMinYMid slice'
 	})
@@ -179,9 +179,6 @@ $(function(){
 
 		sortData(wordAttr)
 		//window.print()
-
-
-
 	})
 
 
@@ -544,7 +541,7 @@ $(function(){
 		var eleCount = d.length //键入的数量
 
 		var US = ['N1','N2','N3','N4','N5','N6','N8','N9','B2']
-		//var US = ['N3','N1','N2','B2']
+		// var US = ['N7','N8','N9']
 		//var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
 		var CB = chooseABasicSL(US)
@@ -615,7 +612,7 @@ $(function(){
 					 	ColorUsedList, // 选用的颜色数组
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
-					 	4,      //  size
+					 	rNF(6)+2,      //  size
 					 	rNF(8), 				//pattern type
 					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
@@ -624,6 +621,7 @@ $(function(){
 			}
 
 		report(eleCount,radiL,CS,Flocation(d))
+		MOVE()
 
 		}//sort
 
@@ -767,7 +765,7 @@ $(function(){
 				}else if(X == 4){
 					var opc = 1
 				}else{
-					var opc = 0.5
+					var opc = 0.7
 				}
 
 				return opc
@@ -800,13 +798,15 @@ $(function(){
 		 	transform: trans(rN(pT*1.5),rN(pT*0.5),size,rN(2))
 		 })
 
+		
 		ELE[i] = s.paper.g(shape,pat).attr({
 				transform:trans(LyR(i).x,LyR(i).y,1,0),
 				mixBlendMode: 'overlay',
 				class:'eleG'
 			})
 
-
+		ELE[i].bs = shape
+		ELE[i].pat = pat
 
 
 
@@ -836,6 +836,49 @@ $(function(){
 		return cord
 
 	}//排版方法，返回 x,y 值
+
+
+
+
+	var MOVE = function(){
+		
+		var mG = s.selectAll('.eleG')
+			lo(mG[2].bs.node)
+
+		$('#btn2').mousemove(function(e){
+
+			let target = e.target 
+			let rect = target.getBoundingClientRect(),
+			btWidth = rect.right - rect.left,
+			offsetX = e.clientX -  rect.left;
+			//lo(offsetX)
+
+
+
+
+			// mG[2].animate({
+			// 	transform:'translate(' + offsetX + ',0)'
+			// },500)
+
+
+
+		})
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
