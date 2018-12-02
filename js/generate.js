@@ -603,7 +603,11 @@ $(function(){
 			
 
 
-			for(var i=0,l=48;i<l;i++){
+			for(let i=0,l=48;i<l;i++){
+
+				var indexSize = x => {return 2+rNF(x)/10}
+				
+
 				createShapeGroup(
 					 	sB(CB,2), 		//basic shape
 					 	i, 		//index
@@ -612,7 +616,7 @@ $(function(){
 					 	ColorUsedList, // 选用的颜色数组
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
-					 	rNF(6)+2,      //  size
+					 	indexSize(i),      //  size
 					 	rNF(8), 				//pattern type
 					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
@@ -775,7 +779,7 @@ $(function(){
 				
 			var shape = s.use(x).attr({
 		 	fill: colorList[rNF(colorList.length)],
-		 	mixBlendMode: 'multiply',
+		 	mixBlendMode: 'color-burn',
 		 	opacity:ToneToOpac(tone),
 		 	transform: trans(0,0,size,rN(2))
 		 })
