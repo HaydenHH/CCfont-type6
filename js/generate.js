@@ -367,6 +367,24 @@ $(function(){
 	  return hash;
 	}
 
+	function randomSort(arr,newArr){
+		if(arr.length == 1){
+			newArr.push(arr[0]);
+			return newArr;
+		}
+
+		var random = Math.ceil(Math.random() * arr.length) - 1;
+		newArr.push(arr[random]);
+		arr.splice(random,1);
+		return randomSort(arr,newArr);
+	}
+
+	let rSA = arr => {
+				const newArr = []
+				randomSort(arr,newArr)
+				return newArr
+			}
+
 	function report(shapeC,rL,cUse,sUse){
 
 				var report = new Object
@@ -542,17 +560,22 @@ $(function(){
 
 		var US = ['N1','N2','N3','N4','N5','N6','N8','N9','B2']
 		// var US = ['N7','N8','N9']
-		//var US = ['N3','N1','N2','B2']
+		// var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
-		var CB = chooseABasicSL(US)
+		var CB = chooseABasicSL(rSA(US))
 			var CS = Fcolor(d)
 			var CType = new Object
 			CType.type = CS       //color types
 			CType.c = eleCount   //count of Color type s
 
 
+			
+
+		
+
+
 		function chooseABasicSL(uC){//带入的是 uS 的数组
-				var basic = new Array
+				var basic = []
 
 				for (var i = 0; i < eleCount; i++) {
 
@@ -560,10 +583,12 @@ $(function(){
 					for(var ii=0,l=basicG.length;ii<l;ii++){
 						for(var iii=0,lll=uC.length;iii<lll;iii++){
 								if(basicG[ii].na == uC[rNF(uC.length)]){
+
 								var out = basicG[ii][rNF(basicG[ii].length)]
 								basic[i] = out.shape
 
 							}
+
 						}
 
 						// for(var iii=0,lll=uC.length;iii<lll;iii++){
@@ -575,6 +600,7 @@ $(function(){
 						// }//这是遍历数组，而不是随机
 					}
 				}
+
 				return basic
 			}//返回一个待选形状区间，由定义字符生成
 
@@ -600,12 +626,12 @@ $(function(){
 
 		var ColorUsedList = sC(CType,eleCount)
 
-			
+		
 
 
 			for(let i=0,l=48;i<l;i++){
 
-				var indexSize = x => {return 2+rNF(x)/10}
+				var indexSize = x => {return 3+rNF(x)/15}
 				
 
 				createShapeGroup(
