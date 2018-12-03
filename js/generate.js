@@ -176,7 +176,7 @@ $(function(){
 
 	$('#btn2').click(function(event){
 		var wordAttr = getAttrOfWord()
-
+		
 		sortData(wordAttr)
 		//window.print()
 	})
@@ -385,7 +385,7 @@ $(function(){
 				return newArr
 			}
 
-	function report(shapeC,rL,cUse,sUse){
+	function report(shapeC,rL,cUse,sRange,usedShapeG,sUse){
 
 				var report = new Object
 
@@ -401,6 +401,8 @@ $(function(){
 				//report.usedShapeCount = useC
 				report.opptionalShapeCount = shapeC
 				report.StyleList = CBL
+				report.ShapeRange = sRange
+				//report.usedShapeGroup= usedShapeG
 
 				return console.log(report)
 			}
@@ -563,6 +565,7 @@ $(function(){
 		// var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
 		var CB = chooseABasicSL(rSA(US))
+
 			var CS = Fcolor(d)
 			var CType = new Object
 			CType.type = CS       //color types
@@ -580,29 +583,36 @@ $(function(){
 				for (var i = 0; i < eleCount; i++) {
 
 
-					for(var ii=0,l=basicG.length;ii<l;ii++){
-						for(var iii=0,lll=uC.length;iii<lll;iii++){
-								if(basicG[ii].na == uC[rNF(uC.length)]){
+					// for(var ii=0,l=basicG.length;ii<l;ii++){
+					// 	for(var iii=0,lll=uC.length;iii<lll;iii++){
+					// 			if(basicG[ii].na == uC[rNF(uC.length)]){
 
-								var out = basicG[ii][rNF(basicG[ii].length)]
+					// 			var out = basicG[ii][rNF(basicG[ii].length)]
+					// 			basic[i] = out.shape
+
+					// 		}
+
+					// 	}
+
+					// }
+
+					for(var ii=0,l=uC.length;ii<l;ii++){
+						for(var iii=0,lll=basicG.length;iii<lll;iii++){
+							if(basicG[iii].na == uC[rNF(uC.length)]){
+								
+								var out = basicG[iii][rNF(basicG[iii].length)]
+								
 								basic[i] = out.shape
-
+								basic[i].type = out.type
 							}
-
 						}
-
-						// for(var iii=0,lll=uC.length;iii<lll;iii++){
-						// 	if(basicG[ii].na == uC[iii]){
-						// 		var out = basicG[ii][rNF(basicG[ii].length)]
-						// 		basic[i] = out.shape
-
-						// 	}
-						// }//这是遍历数组，而不是随机
 					}
 				}
 
 				return basic
 			}//返回一个待选形状区间，由定义字符生成
+
+
 
 
 		function sC(type,count){
@@ -625,14 +635,15 @@ $(function(){
 			}
 
 		var ColorUsedList = sC(CType,eleCount)
-
-		
+		var ShapeUsedList = sB(CB,2)
+			
 
 
 			for(let i=0,l=48;i<l;i++){
 
 				var indexSize = x => {return 3+rNF(x)/15}
 				
+
 
 				createShapeGroup(
 					 	sB(CB,2), 		//basic shape
@@ -650,7 +661,7 @@ $(function(){
 
 			}
 
-		report(eleCount,radiL,CS,Flocation(d))
+		report(eleCount,radiL,CS,CB,ShapeUsedList,Flocation(d))
 		MOVE()
 
 		}//sort
@@ -873,7 +884,7 @@ $(function(){
 	var MOVE = function(){
 		
 		var mG = s.selectAll('.eleG')
-			lo(mG[2].bs.node)
+			
 
 		$('#btn2').mousemove(function(e){
 
