@@ -2,8 +2,8 @@ $(function(){
 
 	var s = Snap('#svg1').attr({
 		width:window.screen.width,
-		height:window.screen.height+300,
-		viewBox: '-20 0 '  + 1440  + ' ' + 1000,
+		height:window.screen.height+2000,
+		viewBox: '-20 0 '  + 1440  + ' ' + 2600,
 		preserveAspectRatio: 'xMinYMid slice'
 	})
 
@@ -25,13 +25,6 @@ $(function(){
 
 
 
-
-
-
-
-
-
-
 	var p
 	var ELE = new Array
 
@@ -47,6 +40,25 @@ $(function(){
 	var patterList = new Array
 	var PaL = new Array
 	var PaI = new Object
+
+	const blend = [
+	'normal',
+	'multiply',
+	'screen',
+	'overlay',
+	'darken',
+	'lighten',
+	'color-dodge',
+	'color-burn',
+	'hard-light',
+	'soft-light',
+	'difference',
+	'exclusion',
+	'hue',
+	'saturation',
+	'color',
+	'luminosity'
+	]
 	// -------------load SVG basic--------------------------load SVG basic--------------------------load SVG basic-------------
 
 
@@ -180,6 +192,12 @@ $(function(){
 		sortData(wordAttr)
 		//window.print()
 	})
+
+	$('#showBtn1').click(function(){
+		window.print()
+
+	});
+
 
 
 
@@ -439,7 +457,7 @@ $(function(){
 
 		var dataCol = new Array
 
-		for(var i=0,l=50;i<l;i++){
+		for(var i=0,l=100;i<l;i++){
 			dataEle = new Object
 			// var ranGet = rNF(dataCol.length)
 			dataEle.stro = stroL[rNF(stroL.length)]
@@ -493,6 +511,7 @@ $(function(){
 			if(timeUse == 0){
 
 				var X = 'G'
+				// 默认G
 
 			}else{
 				Fcolor.time = timeUse[rNF(timeUse.length)]
@@ -572,29 +591,11 @@ $(function(){
 			CType.c = eleCount   //count of Color type s
 
 
-			
-
-		
-
 
 		function chooseABasicSL(uC){//带入的是 uS 的数组
 				var basic = []
 
 				for (var i = 0; i < eleCount; i++) {
-
-
-					// for(var ii=0,l=basicG.length;ii<l;ii++){
-					// 	for(var iii=0,lll=uC.length;iii<lll;iii++){
-					// 			if(basicG[ii].na == uC[rNF(uC.length)]){
-
-					// 			var out = basicG[ii][rNF(basicG[ii].length)]
-					// 			basic[i] = out.shape
-
-					// 		}
-
-					// 	}
-
-					// }
 
 					for(var ii=0,l=uC.length;ii<l;ii++){
 						for(var iii=0,lll=basicG.length;iii<lll;iii++){
@@ -613,19 +614,18 @@ $(function(){
 			}//返回一个待选形状区间，由定义字符生成
 
 
-
-
 		function sC(type,count){
 				//sorted color, 3 counts
 				var colorUseRange = new Array
 				var cc
-				if(type.c < 10){
-					cc = count
+				if(type.c == 1){
+					cc = 2
 
 				}else{
-					cc = 10
+					cc = count
 				}
-				for(var i=0,l=cc+1;i<l;i++){
+				for(var i=0,l=cc;i<l;i++){
+					//输入为0时，只有一种颜色, cc+1 就有两种
 					colorUseRange[i] = gColor(type.type,cc)
 
 
@@ -635,14 +635,19 @@ $(function(){
 			}
 
 		var ColorUsedList = sC(CType,eleCount)
+		// ColorUsedList.type = CType.type
 		var ShapeUsedList = sB(CB,2)
-			
 
 
-			for(let i=0,l=48;i<l;i++){
+		
+		s.selectAll('.eleG').remove()
+		$('#allEle').remove()
 
-				var indexSize = x => {return 3+rNF(x)/15}
-				
+
+		for(let i=0,l=100;i<l;i++){
+
+				var indexSize = x => {return 2.5+rNF(x)/24}
+
 
 
 				createShapeGroup(
@@ -654,17 +659,29 @@ $(function(){
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
 					 	indexSize(i),      //  size
-					 	rNF(8), 				//pattern type
+					 	7, 				//pattern type
 					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
 
-
-			}
+		}
+		var allEle = s.paper.g().attr({id:'allEle'})
+		allEle.append(s.selectAll('.eleG'))
 
 		report(eleCount,radiL,CS,CB,ShapeUsedList,Flocation(d))
-		MOVE()
+		$('#showBtn2').addClass('active')
 
-		}//sort
+	}//sort
+
+	$('#showBtn2').click(function(){
+		if($('#showBtn2').hasClass('active')){
+			getSVG()
+			$('.svg-crowbar').remove()
+				// $('body > svg').remove()
+		}else{
+			alert('You have not create graphics')
+		}
+	});
+			
 
 
 
@@ -695,7 +712,38 @@ $(function(){
 		}
 
 
-	function createPattern(type,size,pC,pCList,count,index,tone){
+	let BlendMode = x => {
+
+		if(x === 0){
+			return blend[rNF(blend.length)]
+		}else{
+			return blend[4]
+		}
+
+	}
+
+	function ToneToOpac(X){
+				var opc
+				if(X == 1){
+					var opc = 0.6
+				}else if(X == 2){
+					var opc = 0.9
+				}else if(X == 3){
+					var opc = 0.7
+				}else if(X == 4){
+					var opc = 1
+				}else{
+					var opc = Math.random()
+				}
+
+				return opc
+			}
+
+
+
+
+
+	function createPattern(type,size,pC,color,count,index,tone){
 			if(size == NaN){
 				var size = 1
 			}
@@ -712,14 +760,14 @@ $(function(){
 				})
 				var b = s.paper.use(x1.shape).attr({
 					transform:pM(c*5,0,0.2),
-					fill:pCList[rNF(pCList.length)],
+					fill:color,
 					//strokeWidth:10,
 					opacity:0.7,
 					mixBlendMode:'overlay'
 					//stroke:sC(pC)
 				})
 				var p = s.paper.g(a,b).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 
 				}).pattern(c,c,c*5,c*10)
 
@@ -730,13 +778,13 @@ $(function(){
 			if(type==1){
 
 				var p = s.paper.circle(10,10,Usize*0.8).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,30,30)
 				return p
 				// 圆点
 			}else if(type==2){
 				var p = s.paper.rect(0,0,1+Usize*0.1,10).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,3,10)
 				return p
 				//竖线
@@ -744,7 +792,7 @@ $(function(){
 				var a = s.paper.rect(0,0,1,10)
 				var b = s.paper.rect(1.5,0,2,10)
 				var p = s.paper.g(a,b).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,5-Usize*0.2,10)
 				return p
 				//双竖线
@@ -755,7 +803,7 @@ $(function(){
 				})
 				
 				var p = s.paper.g(a).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,10,11)
 				return p
 				//菱形
@@ -764,7 +812,7 @@ $(function(){
 				var b = s.paper.rect(1.5,0,2,10)
 				var c = s.paper.rect(3,0,1,10)
 				var p = s.paper.g(a,b,c).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,5-Usize*0.2,10)
 				return p
 				//三竖线
@@ -774,7 +822,7 @@ $(function(){
 
 			}else if(type == 7){
 				var c = s.paper.circle(0.3,0.3,0.3).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0,0,index*0.01+1,index*0.01+1)
 				return c
 				//网点图
@@ -782,7 +830,7 @@ $(function(){
 				var a = s.paper.circle(0.4,0.4,0.2)
 				var b = s.paper.circle(0.8,0.8,0.2)
 				var c = s.g(a,b).attr({
-					fill:pCList[rNF(pCList.length)]
+					fill:color
 				}).pattern(0.2,0.2,1,1)
 				return c
 				//网点图
@@ -794,29 +842,14 @@ $(function(){
 
 
 	function createShapeGroup(x,i,all,type,colorList,sym,tone,size,pT,pS){
-
-			function ToneToOpac(X){
-				var opc
-				if(X == 1){
-					var opc = 0.6
-				}else if(X == 2){
-					var opc = 0.9
-				}else if(X == 3){
-					var opc = 0.7
-				}else if(X == 4){
-					var opc = 1
-				}else{
-					var opc = 0.7
-				}
-
-				return opc
-			}
-
 			
+			var colorA = colorList[rNF(colorList.length)]
+			var colorB = colorList[rNF(colorList.length)]
 				
 			var shape = s.use(x).attr({
-		 	fill: colorList[rNF(colorList.length)],
-		 	mixBlendMode: 'color-burn',
+		 	fill: colorA,
+		 	class: colorA + ' ' +'eleBasic',
+		 	mixBlendMode: BlendMode(tone),
 		 	opacity:ToneToOpac(tone),
 		 	transform: trans(0,0,size,rN(2))
 		 })
@@ -833,10 +866,11 @@ $(function(){
 		 //输出边框。重要
 
 			var pat = s.use(x).attr({
-		 	fill:createPattern(pT,pS,type,colorList,all,i,tone),
-		 	mixBlendMode: 'overlay',
+		 	fill:createPattern(pT,pS,type,colorB,all,i,tone),
+		 	class: colorB + ' ' +'elePat',
+		 	mixBlendMode: BlendMode(tone),
 		 	opacity:ToneToOpac(tone),
-		 	transform: trans(rN(pT*1.5),rN(pT*0.5),size,rN(2))
+		 	transform: trans(rN(pS*1.5),rN(pS*0.5),size,rN(2))
 		 })
 
 		
@@ -849,7 +883,7 @@ $(function(){
 		ELE[i].bs = shape
 		ELE[i].pat = pat
 
-
+		$('#allEle').append(ELE[i])
 
 	}
 
@@ -881,29 +915,14 @@ $(function(){
 
 
 
-	var MOVE = function(){
+	var finish = function(){
 		
-		var mG = s.selectAll('.eleG')
-			
-
-		$('#btn2').mousemove(function(e){
-
-			let target = e.target 
-			let rect = target.getBoundingClientRect(),
-			btWidth = rect.right - rect.left,
-			offsetX = e.clientX -  rect.left;
-			//lo(offsetX)
+	
+		 
 
 
 
-
-			// mG[2].animate({
-			// 	transform:'translate(' + offsetX + ',0)'
-			// },500)
-
-
-
-		})
+		
 
 	}
 

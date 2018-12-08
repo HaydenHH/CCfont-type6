@@ -36,10 +36,7 @@ window.onload = function(){
 	//-------------------------
 
 
-	$('#showBtn1').click(function(){
-		window.print()
-
-	});
+	
 
 
 
