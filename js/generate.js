@@ -1,9 +1,8 @@
 $(function(){
 
 	var s = Snap('#svg1').attr({
-		width:window.screen.width,
-		height:window.screen.height+2000,
-		viewBox: '-20 0 '  + 1440  + ' ' + 2600,
+		height:window.screen.height/1.5,
+		viewBox: '-20 -50 '  + 1440 + ' ' + 800,
 		preserveAspectRatio: 'xMinYMid slice'
 	})
 
@@ -191,6 +190,20 @@ $(function(){
 		
 		sortData(wordAttr)
 		//window.print()
+	})
+
+	$('#btn2').hover(function(b){
+		var inpText = document.getElementById('inp1').value
+		lo()
+		if(inpText === ''){
+
+			this.innerHTML = 'RANDOM DRAW'
+		}else{
+			this.innerHTML = 'DRAW WRITING'
+		}
+		
+	},function(){
+		this.innerHTML = 'DRAW'
 	})
 
 	$('#showBtn1').click(function(){
@@ -658,8 +671,8 @@ $(function(){
 					 	ColorUsedList, // 选用的颜色数组
 					 	dataCol[rNF(l)].radi, //符号判定
 					 	dataCol[rNF(l)].tone, //音调判定
-					 	indexSize(i),      //  size
-					 	7, 				//pattern type
+					 	indexSize(i)/2,      //  size
+					 	rNF(8), 				//pattern type
 					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
 					 )
 
@@ -669,6 +682,9 @@ $(function(){
 
 		report(eleCount,radiL,CS,CB,ShapeUsedList,Flocation(d))
 		$('#showBtn2').addClass('active')
+
+
+		finish()
 
 	}//sort
 
@@ -895,12 +911,12 @@ $(function(){
 
 
 	function LyR(index){
-		space = 160 //每个字的间距
+		space = 100 //每个字的间距
 
 
-		lineHeight = 200 //行距
+		lineHeight = 100 //行距
 
-		rowWord = 8  //每行的字数
+		rowWord = 14  //每行的字数
 		row = Math.floor(index/rowWord)
 		var X = index*space-row*rowWord*space
 		var Y = row*lineHeight
@@ -917,9 +933,13 @@ $(function(){
 
 	var finish = function(){
 		
-	
+			window.scrollTo({
+				top:450,
+				behavior:'smooth'
+			})
 		 
 
+			
 
 
 		

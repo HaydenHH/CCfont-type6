@@ -207,6 +207,10 @@ function getSVG() {
 
     var url = window.URL.createObjectURL(new Blob(source.source, { "type" : "text\/xml" }));
 
+    //console.log(source.source[0])
+    // return  source.source[0]
+      //给邮件发送图片
+
     var a = document.createElement("a");
     body.appendChild(a);
     a.setAttribute("class", "svg-crowbar");
