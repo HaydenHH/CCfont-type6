@@ -176,23 +176,22 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"书",
+						"书","网","电"
 					],
-					"num":3
+					"num":5
 				},
 				{
-					"symbol":
-					[
-						"门",
+					"symbol": [
+						"衤", "纟", "巾"
 					],
-					"num":2
+					"num": 4
 				},
 				{
 					"symbol":
 					[
 						"车",
 					],
-					"num":2
+					"num":6
 				}
 
 
@@ -229,13 +228,7 @@ var locationBank =
 					],
 					"num":4
 				},
-				{
-					"symbol":
-					[
-						"衤","纟","巾"
-					],
-					"num":5
-				},
+				
 				{
 					"symbol":
 					[

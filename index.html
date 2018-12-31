@@ -3,7 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Type-6</title>
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="./css/bootstrap.css">
 	 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
 	<script language="javascript">
 	function preview(oper)
@@ -49,14 +50,12 @@
 			</svg> -->
 		</div>
 		<div class="row">
-			<h2 id="topDot" class="col-12">FONT & GRAPHIC</h2>
+			<h2 id="topDot" class="col-12">F&G</h2>
 
 		</div>
+		
 		<div class="row">
-			<h1 class="col-12 text-center">WRITE YOUR WORDS</h1>
-		</div>
-		<div class="row">
-			<div class="control col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+			<div class="position-absolute control col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
 
 				<div class="row">
 					<textarea id="inp1" class="Noprint col-12" placeholder="read Chinese Only"></textarea>
@@ -65,11 +64,9 @@
 					<button id="btn2" class="Noprint col-sm-12 col-md-12 col-lg-6 btn">MAKE</button>			
 					<div class="d-none d-md-block col-lg-1"></div>
 					<button id="btn1" class="Noprint col-sm-12 col-md-12 col-lg-5 btn">GET A POEM</button>
+					
 				</div>
-							<!-- <div class="row">
-								<button id="showBtn1" class="Noprint col-2 col-md-3 btn" title="Print">P</button>
-								<button id="showBtn2" class="Noprint col-2 col-md-3 btn" title="Download">D</button>
-							</div> -->
+							
 			</div>
 		</div>
 
@@ -111,10 +108,21 @@
 
 	</div>
 
-	<div class="container-fluid">
+	<div  class="container-fluid">
 		<div class="row">
-			<div class="col-12">
-				
+			<div id="botInfo" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
+
+				<div class="row">
+					<div id="poemInfo" class="col-8">
+						<h3 id="poemTitle" class="col-12">TRANSLATE WORDS TO GRAPHIC</h3>
+						<h4 id="poemAuthor" class="col-12">&nbsp</h4>
+					</div>
+	
+					<div id="botBtn" class="col-sm-12 col-md-4">
+						<button id="showBtn1" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Print">Print page</button>
+						<button id="showBtn2" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Download">Download</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -124,6 +132,6 @@
 
 	
 	<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="./js/bootstrap.js"></script>
 </body>
 </html>

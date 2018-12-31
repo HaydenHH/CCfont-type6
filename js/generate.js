@@ -1,7 +1,7 @@
 $(function(){
 
 	var s = Snap('#svg1').attr({
-		height:window.screen.height/1.5,
+		height:window.screen.height*0.8,
 		viewBox: '-20 -50 '  + 1440 + ' ' + 800,
 		preserveAspectRatio: 'xMinYMid slice'
 	})
@@ -24,21 +24,23 @@ $(function(){
 
 
 
-	var p
-	var ELE = new Array
+	let p
+	let ELE = new Array
 
 
-	var basicG = new Array
-	var CBL = new Array
-	var CB = new Object
+	let basicG = new Array
+	let CBL = new Array
+	let CB = new Object
 
-	var BO = new Array
+	let BO = new Array
 
-	var BB = new Object
+	let BB = new Object
 
-	var patterList = new Array
-	var PaL = new Array
-	var PaI = new Object
+	let patterList = new Array
+	let PaL = new Array
+	let PaI = new Object
+
+	let drawSVG
 
 	const blend = [
 	'normal',
@@ -131,6 +133,10 @@ $(function(){
 	getBasicFromSVG('N7')
 	getBasicFromSVG('N8')
 	getBasicFromSVG('N9')
+	getBasicFromSVG('N10')
+	getBasicFromSVG('B3')
+	getBasicFromSVG('B4')
+	getBasicFromSVG('B5')
 
 	function getPatternFromSVG(name){
 
@@ -166,7 +172,7 @@ $(function(){
 
 	// -------------load SVG basic--------------------------load SVG basic--------------------------load SVG basic-------------
 
-	var result, poAry
+	var result, poAry,poAuthor,poTitle
 	var userType
 	var
 		allStroke = new Array(),
@@ -180,26 +186,32 @@ $(function(){
 
 
 	$('#btn1').click(function(event) {
-
 		getAPoem()
-
+		
 	});
+
+	
 
 	$('#btn2').click(function(event){
 		var wordAttr = getAttrOfWord()
 		
-		sortData(wordAttr)
+		//sortData(wordAttr)
 		//window.print()
+
+
+		sortData(wordAttr)
+		
+
+		
 	})
 
 	$('#btn2').hover(function(b){
-		var inpText = document.getElementById('inp1').value
-		lo()
+		let inpText = document.getElementById('inp1').value
 		if(inpText === ''){
-
 			this.innerHTML = 'RANDOM DRAW'
 		}else{
 			this.innerHTML = 'DRAW WRITING'
+			
 		}
 		
 	},function(){
@@ -215,6 +227,7 @@ $(function(){
 
 
 	function getAPoem(){
+		
 
 		$.ajax({
 			url: 'https://api.gushi.ci/all.json',
@@ -223,10 +236,13 @@ $(function(){
 		})
 		.done(function(data) {
 			poAry =  data.content
-			//$('#gushici').text(content)
+			poAuthor = data.author
+			poTitle = data.origin
 			type.val(poAry)
-			//console.log(poAry)
-
+			// if (poTitle) {
+			// 	document.title = poTitle
+			// }
+			
 
 		})
 		.fail(function() {
@@ -236,7 +252,35 @@ $(function(){
 
 	function getAttrOfWord(){
 		var all = type.val().replace(/\s+/g,"，")
-		document.title = all
+		document.getElementById('poemTitle').innerHTML = '&nbsp'
+		document.getElementById('poemAuthor').innerHTML = '&nbsp'
+		if (all == '') {
+			document.title = 'F&G'
+		}
+
+		document.getElementById('inp1').addEventListener("input", function (e) {
+			document.getElementById('poemTitle').innerHTML = '&nbsp'
+			document.getElementById('poemAuthor').innerHTML = '&nbsp'
+			if(poAuthor){
+				poAuthor = '&nbsp'
+			}
+			if(poTitle){
+				poTitle = '&nbsp'
+			}
+		})
+		//如果获取诗集后键入过，会取消标题作者
+
+		if (poAuthor) {
+			document.getElementById('poemAuthor').innerHTML = poAuthor
+		}else{
+			document.getElementById('poemAuthor').innerHTML = 'A RANDOM POEM'
+		}
+		if (poTitle) {
+			document.getElementById('poemTitle').innerHTML = poTitle
+		}else{
+			document.getElementById('poemTitle').innerHTML = ''
+		}
+		
 		allStroke.splice(0)
 		allTone.splice(0)
 		allRadicals.splice(0)
@@ -592,8 +636,8 @@ $(function(){
 
 		var eleCount = d.length //键入的数量
 
-		var US = ['N1','N2','N3','N4','N5','N6','N8','N9','B2']
-		// var US = ['N7','N8','N9']
+		let US = ['N1','N2','N3','N4','N5','N6','N8','N9','N10','B2','B3','B4','B5']
+		//let US = ['B5']
 		// var US = ['N3','N1','N2','B2']
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
 		var CB = chooseABasicSL(rSA(US))
@@ -933,10 +977,10 @@ $(function(){
 
 	var finish = function(){
 		
-			window.scrollTo({
-				top:450,
-				behavior:'smooth'
-			})
+			// window.scrollTo({
+			// 	top:450,
+			// 	behavior:'smooth'
+			// })
 		 
 
 			
@@ -945,7 +989,6 @@ $(function(){
 		
 
 	}
-
 
 
 
