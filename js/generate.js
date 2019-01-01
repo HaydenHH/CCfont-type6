@@ -124,7 +124,7 @@ $(function(){
 
 	}
 	getBasicFromSVG('A1')
-	getBasicFromSVG('B2')
+	
 	getBasicFromSVG('N2')
 	getBasicFromSVG('N1')
 	getBasicFromSVG('N3')
@@ -134,9 +134,13 @@ $(function(){
 	getBasicFromSVG('N8')
 	getBasicFromSVG('N9')
 	getBasicFromSVG('N10')
-	getBasicFromSVG('B3')
-	getBasicFromSVG('B4')
+
+	getBasicFromSVG('B1')
+	getBasicFromSVG('B2')
 	getBasicFromSVG('B5')
+	getBasicFromSVG('B7')
+
+	
 
 	function getPatternFromSVG(name){
 
@@ -593,6 +597,7 @@ $(function(){
 		function Flocation(typing){
 		//返回偏旁的类别和序列，可用于输出 基本形状
 
+			//lo(basicG)
 			var environUse = new Array
 			var objectUse = new Array
 
@@ -611,7 +616,7 @@ $(function(){
 							var type = locationBank[ia].type
 							var num = locationBank[ia].attr[ib].num
 							FLoc.id = type + num
-							environUse.push(FLoc)
+							environUse.push(FLoc.id)
 							}
 						}
 					}
@@ -626,8 +631,9 @@ $(function(){
 				ranLoc.num = ranTAttr[rNF(ranTAttr.length)].num
 				ranLoc.id = ranLoc.type + ranLoc.num
 
-				return ranLoc.id
-
+				
+				return [basicG[rNF(basicG.length)].na]
+				
 			}else{
 				return environUse
 				//返回能识别的数组
@@ -636,9 +642,11 @@ $(function(){
 
 		var eleCount = d.length //键入的数量
 
-		let US = ['N1','N2','N3','N4','N5','N6','N8','N9','N10','B2','B3','B4','B5']
+		//let US = ['N1','N2','N3','N4','N5','N6','N8','N9','N10','B2','B3','B4','B5']
 		//let US = ['B5']
-		// var US = ['N3','N1','N2','B2']
+		
+		let US = Flocation(d)
+		lo(US)
 		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
 		var CB = chooseABasicSL(rSA(US))
 

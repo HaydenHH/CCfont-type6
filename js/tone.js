@@ -93,7 +93,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"氵","water","river","水"
+						"氵","水"
 					],
 					"num":3
 				},
@@ -192,6 +192,13 @@ var locationBank =
 						"车",
 					],
 					"num":6
+				},
+				{
+					"symbol":
+					[
+						"廴",
+					],
+					"num":7
 				}
 
 
