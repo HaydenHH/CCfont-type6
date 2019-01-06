@@ -28,7 +28,8 @@
 	
 	<script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="./js/snap.svg.js"></script>
-	
+	<script src="./js/md5.js"></script>
+	<script src="./js/anime.js"></script>
 	<script type="text/javascript" src="./js/main.js"></script>
 	<script type="text/javascript" src="./js/generate.js"></script>
 	
@@ -36,7 +37,7 @@
 	<script type="text/javascript" src="./js/tone.js"></script>
 
 	<script type="text/javascript" src="./js/poem.js"></script>
-
+	<script src="./js/imgList.js"></script>
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 	<style   media="print">
 	  .Noprint{display:none;}
@@ -44,29 +45,65 @@
 </head>
 <body>
 	<div id="navBox" class="container-fluid">
-		<div class="row" id="navImg">
-			<!-- <svg class="col-12 position-absolute">
-				<use xlink:href="#svg1"/>
-			</svg> -->
-		</div>
-		<div class="row">
-			<h2 id="topDot" class="col-12">F&G</h2>
+		
+		<div id="logo" class="row">
+			<div class="col-12">
+				<h1 class="col-12">SHAPE OF POEM</h1>
+				<h6 id="poemTitleHead"></h6>
+				<h6 id="poemAuthorHead"></h6>
+				<div id="poem" class="col-sm-12 col-lg-5">
+
+				</div>
+				<div id="bigTone" class="position-absolute">
+						<span class="toneSymbol s1"></span>
+						<span class="toneSymbol s2"></span>
+					</div>
+				<div id="bigWord" class="col-sm-12 col-lg-7 position-absolute">
+				</div>
+
+				
+				<svg id="wordData" class="col-12 position-absolute">
+						
+				</svg>
+			</div>
+			
 
 		</div>
-		
 		<div class="row">
-			<div class="position-absolute control col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+			<i id="trans" class="col-8 offset-md-2 text-center">Write your words or Find a poem</i>
+		</div>
+		<div class="row">
+			<div class="control Noprint col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
 
 				<div class="row">
-					<textarea id="inp1" class="Noprint col-12" placeholder="read Chinese Only"></textarea>
+					
+					<textarea id="inp1" class="col-12" placeholder="↙ Translating, if you typed English"></textarea>
 				</div>
 				<div class="row">
-					<button id="btn2" class="Noprint col-sm-12 col-md-12 col-lg-6 btn">MAKE</button>			
+					<button id="btn3" class="col-sm-12 col-md-12 col-lg-2 btn rounded-left">TRANSL</button>
+					<button id="btn2" class="col-sm-12 col-md-12 col-lg-4 btn">MAKE</button>			
 					<div class="d-none d-md-block col-lg-1"></div>
-					<button id="btn1" class="Noprint col-sm-12 col-md-12 col-lg-5 btn">GET A POEM</button>
+					<button id="btn1" class="col-sm-12 col-md-12 col-lg-3 offset-lg-1 btn">GET A POEM</button>
+					
 					
 				</div>
 							
+			</div>
+		</div>
+		<div class="row">
+			<div id="botInfo" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
+		
+				<div class="row">
+					<div id="poemInfo" class="col-8">
+						<h3 id="poemTitle" class="col-12">>></h3>
+						<h4 id="poemAuthor" class="col-12">&nbsp</h4>
+					</div>
+		
+					<div id="botBtn" class="col-sm-12 col-md-4">
+						<button id="showBtn1" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Print">Print page</button>
+						<button id="showBtn2" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Download">Download</button>
+					</div>
+				</div>
 			</div>
 		</div>
 
@@ -75,54 +112,22 @@
 
 
 	<div class="container-fluid" id="drawing">
-	
-		<!-- <div class="row">
-			<div id="back" class="col-sm-12 col-md-8 col-lg-6 col-xl-4 offset-md-1 offset-lg-2 offset-xl-3 offset-xl-4 ">
-				
-			</div>
-
-		</div> -->
-
-		
-	
-
 	<!--startprint1-->
 	
 		<div class="row" id="svgBox">
 			<svg id="svg1" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
 					
 			</svg>
-			
 		</div>
 	
 
 	<!--endtprint1-->
-	
-		<!-- <div class="row">
-			<div id="front" class="col-sm-12 col-md-8 col-lg-6 col-xl-4 offset-md-1 offset-lg-2 offset-xl-3 offset-xl-4">
-			
-			</div>
-		</div>
-		 -->
-
-
 	</div>
 
-	<div  class="container-fluid">
+	<div class="container-fuild">
 		<div class="row">
-			<div id="botInfo" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
-
-				<div class="row">
-					<div id="poemInfo" class="col-8">
-						<h3 id="poemTitle" class="col-12">TRANSLATE WORDS TO GRAPHIC</h3>
-						<h4 id="poemAuthor" class="col-12">&nbsp</h4>
-					</div>
-	
-					<div id="botBtn" class="col-sm-12 col-md-4">
-						<button id="showBtn1" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Print">Print page</button>
-						<button id="showBtn2" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Download">Download</button>
-					</div>
-				</div>
+			<div id="gallery" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
+				<h1 class="col-12">GALLERY</h1>
 			</div>
 		</div>
 	</div>

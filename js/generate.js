@@ -1,8 +1,12 @@
 $(function(){
 
+	const imgQ = 160
+	const xH = 1.2
+
 	var s = Snap('#svg1').attr({
-		height:window.screen.height*0.8,
-		viewBox: '-20 -50 '  + 1440 + ' ' + 800,
+		width: window.screen.width,
+		height:window.screen.height*xH,
+		viewBox: '-20 -50 ' + screen.width + ' ' + screen.height*xH,
 		preserveAspectRatio: 'xMinYMid slice'
 	})
 
@@ -24,7 +28,7 @@ $(function(){
 
 
 
-	let p
+	
 	let ELE = new Array
 
 
@@ -39,8 +43,6 @@ $(function(){
 	let patterList = new Array
 	let PaL = new Array
 	let PaI = new Object
-
-	let drawSVG
 
 	const blend = [
 	'normal',
@@ -134,11 +136,18 @@ $(function(){
 	getBasicFromSVG('N8')
 	getBasicFromSVG('N9')
 	getBasicFromSVG('N10')
+	getBasicFromSVG('N11')
 
 	getBasicFromSVG('B1')
 	getBasicFromSVG('B2')
+	getBasicFromSVG('B4')
 	getBasicFromSVG('B5')
+	getBasicFromSVG('B6')
 	getBasicFromSVG('B7')
+	getBasicFromSVG('B8')
+
+	getBasicFromSVG('P1')
+	getBasicFromSVG('P2')
 
 	
 
@@ -190,6 +199,7 @@ $(function(){
 
 
 	$('#btn1').click(function(event) {
+		document.getElementById('trans').innerHTML = '&nbsp'
 		getAPoem()
 		
 	});
@@ -199,8 +209,7 @@ $(function(){
 	$('#btn2').click(function(event){
 		var wordAttr = getAttrOfWord()
 		
-		//sortData(wordAttr)
-		//window.print()
+		
 
 
 		sortData(wordAttr)
@@ -221,6 +230,38 @@ $(function(){
 	},function(){
 		this.innerHTML = 'DRAW'
 	})
+
+	$('#btn3').click(function (e) { 
+		let inpText = document.getElementById('inp1').value
+
+		let appid = '20190105000254845';
+		let key = 'U0V67jcwJv9A0sPrByhj';
+		let salt = (new Date).getTime();
+
+		// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+		let from = 'en';
+		let to = 'zh';
+		let str1 = appid + inpText + salt + key;
+		let sign = MD5(str1);
+		$.ajax({
+			url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+			type: 'get',
+			dataType: 'jsonp',
+			data: {
+				q: inpText,
+				appid: appid,
+				salt: salt,
+				from: from,
+				to: to,
+				sign: sign
+			},
+			success: function (data) {
+				document.getElementById('inp1').value = data.trans_result[0].dst
+			}
+		});
+		
+		
+	});
 
 	$('#showBtn1').click(function(){
 		window.print()
@@ -255,16 +296,45 @@ $(function(){
 	}
 
 	function getAttrOfWord(){
-		var all = type.val().replace(/\s+/g,"，")
+		let all = type.val().replace(/\s+/g,"，")
 		document.getElementById('poemTitle').innerHTML = '&nbsp'
 		document.getElementById('poemAuthor').innerHTML = '&nbsp'
-		if (all == '') {
-			document.title = 'F&G'
-		}
+		
+
+		
+
+		let appid = '20190105000254845';
+		let key = 'U0V67jcwJv9A0sPrByhj';
+		let salt = (new Date).getTime();
+		
+		// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
+		let from = 'zh';
+		let to = 'en';
+		let str1 = appid + all + salt + key;
+		let sign = MD5(str1);
+		$.ajax({
+			url: 'http://api.fanyi.baidu.com/api/trans/vip/translate',
+			type: 'get',
+			dataType: 'jsonp',
+			data: {
+				q: all,
+				appid: appid,
+				salt: salt,
+				from: from,
+				to: to,
+				sign: sign
+			},
+			success: function (data) {
+				document.getElementById('trans').innerHTML = data.trans_result[0].dst
+			}
+		});
+
+
 
 		document.getElementById('inp1').addEventListener("input", function (e) {
 			document.getElementById('poemTitle').innerHTML = '&nbsp'
 			document.getElementById('poemAuthor').innerHTML = '&nbsp'
+			document.getElementById('trans').innerHTML = '&nbsp'
 			if(poAuthor){
 				poAuthor = '&nbsp'
 			}
@@ -318,12 +388,10 @@ $(function(){
 	       					for(var toneIndex = 0, tonel = toneBank[toneG].tone.length; toneIndex < tonel; toneIndex++){
 	       					    for(var pin = 0, pinl = pinyinStr.length; pin < pinl; pin++){
 	       					       	if(toneG > 0 && toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-	       					       							// $('body').append($('<p>' + allType[count] + ':第' + [toneG + 1] + '声</p>'))
-	       					       							//renderTone('tone',[toneG + 1])
+
 	       					       		allTone.push([toneG])
 	       					       	}else if(toneBank[toneG].tone[toneIndex] == pinyinStr[pin]){
-	       					       							//$('body').append($('<p>' + allType[count] + ':轻声</p>'))
-	       					       							//renderTone('toneLite',1)
+
 	       					       		allTone.push([toneG])
 	       					       		}
 	       					       	}
@@ -518,7 +586,7 @@ $(function(){
 
 		var dataCol = new Array
 
-		for(var i=0,l=100;i<l;i++){
+		for (let i = 0; i < imgQ;i++){
 			dataEle = new Object
 			// var ranGet = rNF(dataCol.length)
 			dataEle.stro = stroL[rNF(stroL.length)]
@@ -642,12 +710,11 @@ $(function(){
 
 		var eleCount = d.length //键入的数量
 
-		//let US = ['N1','N2','N3','N4','N5','N6','N8','N9','N10','B2','B3','B4','B5']
 		//let US = ['B5']
 		
 		let US = Flocation(d)
-		lo(US)
-		//var US = ['N3','N1','N2','B2']    //临时选用的基础形状数组
+		//临时选用的基础形状数组
+
 		var CB = chooseABasicSL(rSA(US))
 
 			var CS = Fcolor(d)
@@ -709,24 +776,27 @@ $(function(){
 		$('#allEle').remove()
 
 
-		for(let i=0,l=100;i<l;i++){
+		for (let i = 0; i < imgQ;i++){
 
-				var indexSize = x => {return 2.5+rNF(x)/24}
+			let indexSize = x => {return 2.5+rNF(x)/24}
 
-
-
+			
 				createShapeGroup(
-					 	sB(CB,2), 		//basic shape
-					 	i, 		//index
-					 	eleCount,     //总数
-					 	CType,  // color type
-					 	ColorUsedList, // 选用的颜色数组
-					 	dataCol[rNF(l)].radi, //符号判定
-					 	dataCol[rNF(l)].tone, //音调判定
-					 	indexSize(i)/2,      //  size
-					 	rNF(8), 				//pattern type
-					 	dataCol[rNF(l)].stro 	//笔画数 pattern ele size
-					 )
+					sB(CB, 2), //basic shape
+					i, //index
+					eleCount, //总数
+					CType, // color type
+					ColorUsedList, // 选用的颜色数组
+					dataCol[rNF(l)].radi, //符号判定
+					dataCol[rNF(l)].tone, //音调判定
+					indexSize(i) / 2, //  size
+					rNF(8), //pattern type
+					dataCol[rNF(l)].stro //笔画数 pattern ele size
+				)
+			
+
+
+				
 
 		}
 		var allEle = s.paper.g().attr({id:'allEle'})
@@ -945,7 +1015,8 @@ $(function(){
 		ELE[i] = s.paper.g(shape,pat).attr({
 				transform:trans(LyR(i).x,LyR(i).y,1,0),
 				mixBlendMode: 'overlay',
-				class:'eleG'
+				class:'eleG',
+				id:'eleG'+i
 			})
 
 		ELE[i].bs = shape
@@ -985,11 +1056,15 @@ $(function(){
 
 	var finish = function(){
 		
-			// window.scrollTo({
-			// 	top:450,
-			// 	behavior:'smooth'
-			// })
-		 
+		
+		// let motionA = anime({
+		// 	targets: `#eleG${rNF(100)} use`,
+		// 	translateY: 50,
+		// 	direction: 'alternate',
+		// 	loop: true
+		// });
+		
+		
 
 			
 

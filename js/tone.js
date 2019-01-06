@@ -93,7 +93,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"氵","水"
+						"氵","水","雨"
 					],
 					"num":3
 				},
@@ -144,14 +144,12 @@ var locationBank =
 					"num":10
 
 				},
-				// {
-				// 	"symbol":
-				// 	[
-				// 		"禾",
-				// 	],
-				// 	"num":12
-
-				// },
+				{
+					"symbol": [
+						"月","日"
+					],
+					"num": 11
+				},
 
 
 			]
@@ -182,7 +180,7 @@ var locationBank =
 				},
 				{
 					"symbol": [
-						"衤", "纟", "巾"
+						"衤", "纟", "巾","衣"
 					],
 					"num": 4
 				},
@@ -199,6 +197,12 @@ var locationBank =
 						"廴",
 					],
 					"num":7
+				},
+				{
+					"symbol": [
+						"穴",
+					],
+					"num": 8
 				}
 
 
@@ -224,7 +228,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"亻","女"
+						"亻","女","人","儿"
 					],
 					"num":3
 				},
@@ -253,7 +257,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"辶","足","癶"
+						"辶", "足", "癶", "至"
 					],
 					"num":8
 				},
@@ -263,6 +267,12 @@ var locationBank =
 						"酉",
 					],
 					"num":9
+				},
+				{
+					"symbol": [
+						"酉",
+					],
+					"num": 9
 				}
 
 			]
