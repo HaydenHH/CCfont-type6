@@ -5,6 +5,13 @@ window.onload = function(){
 	let rNF = x => Math.floor(Math.random() * x)
 	let ranIndex = x => Math.floor(Math.random() * x.length)
 
+	let trm = (t,x)=>{
+		let m = Snap.Matrix
+		if(t==='t'){
+			return m.translate(x)
+		}
+	}
+
 	function getAttr(x) {
 		let all = x.innerHTML.replace(/\s+/g, "，")
 		let allStroke = new Array,
@@ -122,22 +129,104 @@ window.onload = function(){
 	}
 	//-------------------------
 
-	let bSvg = Snap('#beginSvg')
+
 
 	let createBeginSvg = () => {
+		let bSvg = Snap('#beginSvg')
+		const ww = $(window).width()
+		const	wh = $(window).height()
 
-		const ww = window.screen.width,
-					wh = window.screen.height;
+		const bgc = 'rgb(237,185,41)'
+		let [cc,rc,tc] = ['red','#5D9741','#4D42CC']
+		let [x,y,r] = [ww/4,wh/2.5,ww/10]
+		let [x2,y2,len] = [x-r,y,r*2]
+		let [x3,y3,len2] = [
+			[x-r,y+r],[x-r,y-r],[x-r+Math.sqrt((len*len)-(len/2*len/2)),y2]
+		]
 
 		bSvg.attr({
 			width:ww,
 			height:wh
 		})
 
-		bSvg.paper.circle(ww/2,wh/2,200)
+		let bCir = bSvg.paper.circle(x,y,r).attr({
+			class:'bgShape',
+			fill:bgc,
+			opacity:0.8,
+			mixBlendMode:'overlay'
+		})
+
+		let bRect = bSvg.paper.rect(x,y-r,len,len).attr({
+			class:'bgShape',
+			fill:bgc,
+			mixBlendMode:'multiply',
+			transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
+		})
+
+		let bTrg = bSvg.paper.polyline([x3,y3,len2]).attr({
+			class:'bgShape',
+			transform:`rotate(30,${[x3]})`,
+			fill:bgc,
+			opacity:1,
+			mixBlendMode:'overlay'
+		})
+
+		let bGp = bSvg.g(bRect,bCir,bTrg)
+
+		bGp.click(()=>{
+			$('#poem').children().remove()
+			$.ajax({
+				url: 'https://v2.jinrishici.com/one.json',
+				xhrFields: {
+					withCredentials: true
+				},
+				success: function (result) {
+					let poemSenten = Array.from(result.data.origin.content)
+					let poemAuthor = result.data.origin
+					getFirstPoem(poemSenten, poemAuthor)
+				}
+			});
+		})
+
+		bGp.hover(()=>{
+			let shapeOpen = ()=>{
+				bCir.animate({
+						fill:cc,
+				},300)
+				bTrg.animate({
+						fill:tc,
+						transform:`rotate(0,${[x3]}) tranlate(${-0.5*r},${0.5*r})`
+				},300)
+				bRect.animate({
+						fill:rc,
+						transform:`rotate(0,${x},${y}) translate(${r},${-0.3*r}) scale(0.8)`
+				},300)
+			}
+
+
+			bCir.click((t)=>{
+
+			})
+
+		},()=>{
+			bTrg.animate({
+					fill:bgc,
+					transform:`rotate(30,${[x3]}) `
+			},300)
+			bRect.animate({
+					fill:bgc,
+					transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
+			},300)
+		})
 	}
 
 	createBeginSvg()
+	window.onresize = ()=>{
+		Snap.selectAll('.bgShape').remove()
+		createBeginSvg()
+	}
+
+
 
 	//create Gallery
 	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4 img-responsive" src="${link}">`;
@@ -266,20 +355,20 @@ window.onload = function(){
 		wordsMotion()
 	 }
 
-	$('#resetPoemBtn').click(()=>{
-		$('#poem').children().remove()
-		$.ajax({
-			url: 'https://v2.jinrishici.com/one.json',
-			xhrFields: {
-				withCredentials: true
-			},
-			success: function (result) {
-				let poemSenten = Array.from(result.data.origin.content)
-				let poemAuthor = result.data.origin
-				getFirstPoem(poemSenten, poemAuthor)
-			}
-		});
-	})
+	// $('#resetPoemBtn').click(()=>{
+	// 	$('#poem').children().remove()
+	// 	$.ajax({
+	// 		url: 'https://v2.jinrishici.com/one.json',
+	// 		xhrFields: {
+	// 			withCredentials: true
+	// 		},
+	// 		success: function (result) {
+	// 			let poemSenten = Array.from(result.data.origin.content)
+	// 			let poemAuthor = result.data.origin
+	// 			getFirstPoem(poemSenten, poemAuthor)
+	// 		}
+	// 	});
+	// })
 
 
 
