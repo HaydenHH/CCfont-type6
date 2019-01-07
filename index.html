@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Type-6</title>
+	<title>SHAPE OF POEM</title>
 	<!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="./css/bootstrap.css">
 	 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no, user-scalable=no">
@@ -50,40 +50,43 @@
 			<div class="col-12">
 				<h1 class="col-12">SHAPE OF POEM</h1>
 				<h6 id="poemTitleHead"></h6>
-				<h6 id="poemAuthorHead"></h6>
-				<div id="poem" class="col-sm-12 col-lg-5">
+				<h5 id="poemAuthorHead"></h5>
+				<div id="bigTrans" class="col-sm-5">&nbsp</div>
+				<div id="poem" class="col-sm-12 col-md-8 col-lg-4">
 
 				</div>
 				<div id="bigTone" class="position-absolute">
 						<span class="toneSymbol s1"></span>
 						<span class="toneSymbol s2"></span>
-					</div>
-				<div id="bigWord" class="col-sm-12 col-lg-7 position-absolute">
 				</div>
-
 				
-				<svg id="wordData" class="col-12 position-absolute">
-						
-				</svg>
+				<div id="bigWord" class="col-sm-6 col-lg-7 position-absolute"></div>
+				<svg id="wordData" class="col-sm-12 position-absolute"></svg>
+				<div id="nextBtn" class="col-3">
+					<svg id="nextBtn1"></svg>
+				</div>
 			</div>
 			
 
 		</div>
+		
 		<div class="row">
-			<i id="trans" class="col-8 offset-md-2 text-center">Write your words or Find a poem</i>
+			<div class="holder col-12 d-none d-md-block"></div>
+			<i id="trans" class="col-sm-12 col-md-8 offset-md-2 text-center">Write your words or Find a poem</i>
 		</div>
 		<div class="row">
-			<div class="control Noprint col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+			<div class="holder col-12 d-none d-md-block"></div>
+			<div class="control Noprint col-12 col-md-6 offset-md-3">
 
 				<div class="row">
 					
-					<textarea id="inp1" class="col-12" placeholder="↙ Translating, if you typed English"></textarea>
+					<textarea id="inp1" class="col-12 rounded" placeholder="↙ Translating, if you typed English"></textarea>
 				</div>
 				<div class="row">
 					<button id="btn3" class="col-sm-12 col-md-12 col-lg-2 btn rounded-left">TRANSL</button>
-					<button id="btn2" class="col-sm-12 col-md-12 col-lg-4 btn">MAKE</button>			
+					<button id="btn2" class="col-sm-12 col-md-12 col-lg-5 btn">DRAW</button>			
 					<div class="d-none d-md-block col-lg-1"></div>
-					<button id="btn1" class="col-sm-12 col-md-12 col-lg-3 offset-lg-1 btn">GET A POEM</button>
+					<button id="btn1" class="col-sm-12 col-md-12 col-lg-3 btn">GET A POEM</button>
 					
 					
 				</div>
@@ -126,8 +129,9 @@
 
 	<div class="container-fuild">
 		<div class="row">
+			<div class="holder col-12 d-none d-md-block"></div>
 			<div id="gallery" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
-				<h1 class="col-12">GALLERY</h1>
+				<h4 class="col-12">GALLERY</h4>
 			</div>
 		</div>
 	</div>

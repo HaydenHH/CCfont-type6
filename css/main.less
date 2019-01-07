@@ -1,5 +1,5 @@
 // out: ../css/main.css, sourcemap: true, compress: true
-@yel:#EDC329;
+@yel:rgb(237, 195, 41);
 @dark:#0c032f;
 @gre:#4d4d4d;
 @whi:#f5f6f0;
@@ -31,7 +31,7 @@
 
 
 body{
-	
+	height: 100%;
 	padding: 0;
 	margin: 0;
 	padding-bottom:300px;
@@ -66,17 +66,26 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 		background-color:@yel;
 		overflow: hidden;
 		h1{
-		color: @whi;
+			margin-top: 20px;
+			color: @whi;
 	}
 	#poemTitleHead,#poemAuthorHead{
+		color:@gre;
+		margin-top: 20px;
+		margin-left: 20px;
+		font-size: 1.3em;
 	}
 	#poem{
-		margin-top: 27vh;
+		padding: 0px;
+		margin-top: 3vh;
+		height: 50vh;
+		overflow-y: hidden;
 		z-index: 10;
 		.sentences{
-			margin: 30px 0;
+			margin: 20px 0;
 		}
 		.poemWords{
+			cursor: pointer;
 			display: inline-block;
 			color: @yel;
 			font-size: 1.5em;
@@ -86,7 +95,7 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 	#bigTone{
 		opacity: 0;
 		top: 5vh;
-		right: 15vw;
+		right: 5vw;
 		height: 5vh;
 		width: 20vw;
 		.toneSymbol{
@@ -94,24 +103,49 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 			height: 100%;
 			position: absolute;
 			display: block;
-			background-color: @gre;
+			background-color: lighten(@gre,10%);
+			@media screen and (max-width: 1068px){
+			height: 30%;
+		}
 		}
 	}
 	#bigWord{
 		opacity: 0;
 		color: @gre;
-		font-size: 30vw;
+		font-size: 25vw;
 		top: 1vh;
-		right: -5vw;
+		right: -15vw;
 		text-align: center;
 		z-index: 5;
+		@media screen and (max-width: 1068px){
+			font-size: 90vw;
+			top:20vh;
+			right:0;
+		}
+	}
+
+	#bigTrans{
+		position: absolute;
+		right:12vw;
+		top:70vh;
+		font-size: 1.5em;
+		color:lighten(@gre,5%);
+		text-align: right;
 	}
 
 	#wordData{
 		
 		bottom: 5vh;
-		left: 5vw;
-		z-index: 99;
+		//left: 5vw;
+		z-index: 19;
+	}
+	
+	#nextBtn{
+		z-index: 20;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		text-align: right;
 	}
 
 	}
@@ -121,13 +155,13 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 	}
 	
 	#trans{
-		margin-top: 250px;
+		margin-top: 50px;
 		font-size: 1.2em;
 	}
 
 	.control{
 	//top:20%;
-	margin-top: 150px;
+	margin-top: 30px;
 	margin-bottom: 5%;
 	padding: 10px 30px 10px 30px;
 	//border:0.5px solid @gre;
@@ -154,6 +188,7 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 #svgBox{
 	padding:0;
 	margin-top: 0px;
+	margin-bottom: 50px;
 	top:10%;
 	z-index: 2;
 }
@@ -165,9 +200,6 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 	//border:2px solid @gre;
 
 }
-
-
-
 
 
 #btnBox{
@@ -190,6 +222,7 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 }
 #btn2{
 	margin-left: 5px;	
+	border:@dark 2px solid;
 }
 
 
@@ -223,35 +256,90 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 }
 	
 .gaImg{
-	margin-top: 15px;
+	margin-top: 50px;
+	padding: 10px;
+	height: 200px;
+	cursor:pointer;
+	transition: 1.5s;
+	&:hover{
+		transition: 0.5s;
+		transform: translateY(-10px)
+	}
+}
+.viewImg{
+	background-color:rgba(19, 18, 18, 0.7);
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	padding: 2%;
+	top: 0;
+	z-index: 99;
+	
+	img{
+		margin-left:10vw;
+		height: 90vh;
+		float: left;
+	}
+	
+	#closeImg{
+		width: 50px;
+		height: 50px;
+		margin-left: 15px;
+		float: left;
+		span{
+			display: block;
+			width:96%;
+			height: 2px;
+			border-radius: 50px;
+			background-color: @gre;
+			
+		}
+		#span1{
+			transform: rotate(-45deg)
+		}
+		#span2{
+			transform: rotate(45deg) translateY(-1.5px)
+		}
+		&:hover{
+			#span1{
+				@keyframes mymove {
+    				from {transform:rotate(45deg);}
+    				to {transform:rotate(-45deg);}
+				}
+				animation: mymove 1s forwards;
+			}
+			#span2{
+				@keyframes mymove2 {
+					from {transform:rotate(0deg);
+					width:100%;}
+					to {transform:rotate(-45deg);
+					width:0%;}
+				}
+				animation: mymove2 1s forwards;
+			}
+			background-color: @yel;
+		}
+	}
+	@media screen and (max-width: 1068px) {
+		img{
+		margin-left:0vw;
+		height: 90vh;
+		
+		}
+		#closeImg{
+		margin:4%;
+		position:absolute;
+		top:0;
+		right: 0;
+		
+		}	
+	}
 }
 
 	
 
 
 
-
-
-.showValue{
-	display: inline-block;
-}
-
-.btn-pause{
-	background-color: red;
-}
-.btn-render{
-	background-color: blue;
-}
-.btn-auto{
-	background-color: green;
-}
-.btn-reC{
-	margin-left: 20px;
-}
-.btn-slider{
-	margin-left: 20px;
-	transform: translateY(3px);
-}
 
 
 
@@ -280,4 +368,8 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
         clear:left;
         visibility:hidden;
 	}
+}
+
+.holder{
+	height: 20vh;
 }

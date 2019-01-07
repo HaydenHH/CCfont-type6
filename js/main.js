@@ -33,7 +33,7 @@ window.onload = function(){
 				sign: sign
 			},
 			success: function (data) {
-				lo(data.trans_result[0].dst)
+				$('#bigTrans').text(data.trans_result[0].dst)
 			}
 		});
 
@@ -123,12 +123,12 @@ window.onload = function(){
 	//-------------------------
 
 	
-	let createImg = link => `<a href="${link}"><img class="gaImg col-3" src="${link}"></div></a>`;
+	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4" src="${link}"></div>`;
 	let ranListSet = new Set()
-	
+	const imgQ = 9;
 	do {
 		ranListSet.add(imgLink[ranIndex(imgLink)])
-	} while (ranListSet.size<8);
+	} while (ranListSet.size<imgQ);
 
 	const ranList = Array.from(ranListSet);
 	
@@ -137,6 +137,31 @@ window.onload = function(){
 		//lo(i)
 		$('#gallery').append(createImg(link))
 	}
+
+	Array.from(document.getElementsByClassName('gaImg')).forEach((t)=> {
+		t.addEventListener('click', (t)=>{
+			
+			let href = t.target.src
+			$('body').append(`
+				<div class="viewImg">
+					<img src="${href}" class="img-responsive">
+					<button id="closeImg" class="btn">
+						<span id="span1"></span>
+						<span id="span2"></span>
+					</button>
+				</div>
+			`)
+
+			$('#closeImg').click(function () {
+				$('.viewImg').fadeOut();
+				setTimeout(() => {
+					$('.viewImg').remove()
+				}, 1000);
+			  })
+		})
+	});
+
+	//----------------
 
 	
 	$.ajax({
@@ -149,6 +174,29 @@ window.onload = function(){
 			let poemAuthor = result.data.origin
 			getFirstPoem(poemSenten, poemAuthor)
 		}
+	});
+
+	const svgNext = Snap('#nextBtn1')
+	svgNext.attr({
+		width:'100px',
+		height:'100px'
+	})
+
+	let nCir = svgNext.paper.circle(20,20,10).attr({
+		fill:'red',
+		id:'resetPoemBtn'
+	})
+
+	nCir.hover(function(){
+		this.animate({
+			r:15,
+			fill:'blue'
+		},500,mina.easein)
+	},function(){
+		this.animate({
+			r:10,
+			fill:'red'
+		},500,mina.easeout)
 	});
 
 	
@@ -182,6 +230,21 @@ window.onload = function(){
 		}
 		wordsMotion()
 	 }
+
+	$('#resetPoemBtn').click(()=>{
+		$('#poem').children().remove()
+		$.ajax({
+			url: 'https://v2.jinrishici.com/one.json',
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function (result) {
+				let poemSenten = Array.from(result.data.origin.content)
+				let poemAuthor = result.data.origin
+				getFirstPoem(poemSenten, poemAuthor)
+			}
+		});
+	})
 	
 
 
@@ -204,18 +267,22 @@ window.onload = function(){
 				return rNF(50);
 			},
 			translateY: function (el, i, l) {
-				return rNF(20);
+				return rNF(10);
 			},
 			color: '#4d4d4d',
 			duration: function (el, i, l) {
-				return 3000 + (i * 300);
+				return 3000 + (i * rNF(300));
 			}
+			
 		});
 
 		clickWord()
 	}
 
 	let s2 = Snap('#wordData')
+	s2.attr({
+		'width': window.screen.width/2
+	})
 
 	function clickWord() {
 		$('.poemWords').click((t)=> {
@@ -228,16 +295,20 @@ window.onload = function(){
 			})
 
 			let obj = getAttr(t.target)[0]
+			const nameOfTone = ['Nature','Level','Rise','Fall&Rise','Fall']
 
 			for(let i=0;i<obj.getStro;i++){
-				const lineW = 1000
+				let lineW = window.screen.width/2
 				let rect = s2.paper.rect(0, 100, 0, 10)
 
 				s2.selectAll('.stroNum').remove()
-				let text2 = s2.paper.text(10, 80,'Strokes:'+ [i+1]).attr({
-					'font-size': '3em',
+				let text2 = s2.paper.text(10, 80,`
+					Strokes:${[i+1]} Tone:${nameOfTone[obj.getTone]}
+				`).attr({
+					'font-size': '2em',
 					'fill': '#4d4d4d',
-					'class':'stroNum'
+					'class':'stroNum',
+					'font':'future'
 				})
 				
 				rect.attr({
@@ -248,7 +319,7 @@ window.onload = function(){
 						 width: val
 						
 				 	});
-				 }, 500+i*50);
+				 }, 500+i*50,mina.easein);
 			}
 
 			
@@ -280,24 +351,24 @@ window.onload = function(){
 
 			
 		})
-		bigWordHover()
+		// bigWordHover()
 
 
 	}
 
-	function bigWordHover() {
-		$('#bigWord').hover(function (param) {
-			$('#bigWord').stop(true)
-			$('#bigWord').animate({
-				transform: "scale(1.2)"
-			},1500)
-		},function (param) {
-			$('#bigWord').stop(true)
-			$('#bigWord').animate({
-				right: '-5vw'
-			}, 1500)
-		})
-	}
+	// function bigWordHover() {
+	// 	$('#bigWord').hover(function (param) {
+	// 		$('#bigWord').stop(true)
+	// 		$('#bigWord').animate({
+	// 			transform: "scale(1.2)"
+	// 		},1500)
+	// 	},function (param) {
+	// 		$('#bigWord').stop(true)
+	// 		$('#bigWord').animate({
+	// 			right: '-5vw'
+	// 		}, 1500)
+	// 	})
+	// }
 
 
 
