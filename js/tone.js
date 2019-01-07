@@ -221,7 +221,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"心",
+						"心","忄"
 					],
 					"num":2
 				},
@@ -239,7 +239,7 @@ var locationBank =
 					],
 					"num":4
 				},
-				
+
 				{
 					"symbol":
 					[

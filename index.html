@@ -25,14 +25,14 @@
 	</script>
 	<script type="text/javascript" src="./js/svg-crowbar-2.js"></script>
 	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-	
+
 	<script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="./js/snap.svg.js"></script>
 	<script src="./js/md5.js"></script>
 	<script src="./js/anime.js"></script>
 	<script type="text/javascript" src="./js/main.js"></script>
 	<script type="text/javascript" src="./js/generate.js"></script>
-	
+
 	<script type="text/javascript" src="./js/word.js"></script>
 	<script type="text/javascript" src="./js/tone.js"></script>
 
@@ -44,8 +44,12 @@
 	</style>
 </head>
 <body>
-	<div id="navBox" class="container-fluid">
-		
+	<div id="intro">
+		<h1>Hello</h1>
+		<svg id="beginSvg"></svg>
+	</div>
+	<div id="navBox" class="container-fluid Noprint">
+
 		<div id="logo" class="row">
 			<div class="col-12">
 				<h1 class="col-12">SHAPE OF POEM</h1>
@@ -59,17 +63,17 @@
 						<span class="toneSymbol s1"></span>
 						<span class="toneSymbol s2"></span>
 				</div>
-				
+
 				<div id="bigWord" class="col-sm-6 col-lg-7 position-absolute"></div>
 				<svg id="wordData" class="col-sm-12 position-absolute"></svg>
 				<div id="nextBtn" class="col-3">
 					<svg id="nextBtn1"></svg>
 				</div>
 			</div>
-			
+
 
 		</div>
-		
+
 		<div class="row">
 			<div class="holder col-12 d-none d-md-block"></div>
 			<i id="trans" class="col-sm-12 col-md-8 offset-md-2 text-center">Write your words or Find a poem</i>
@@ -79,29 +83,29 @@
 			<div class="control Noprint col-12 col-md-6 offset-md-3">
 
 				<div class="row">
-					
+
 					<textarea id="inp1" class="col-12 rounded" placeholder="↙ Translating, if you typed English"></textarea>
 				</div>
 				<div class="row">
 					<button id="btn3" class="col-sm-12 col-md-12 col-lg-2 btn rounded-left">TRANSL</button>
-					<button id="btn2" class="col-sm-12 col-md-12 col-lg-5 btn">DRAW</button>			
+					<button id="btn2" class="col-sm-12 col-md-12 col-lg-5 btn">DRAW</button>
 					<div class="d-none d-md-block col-lg-1"></div>
 					<button id="btn1" class="col-sm-12 col-md-12 col-lg-3 btn">GET A POEM</button>
-					
-					
+
+
 				</div>
-							
+
 			</div>
 		</div>
 		<div class="row">
 			<div id="botInfo" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
-		
+
 				<div class="row">
 					<div id="poemInfo" class="col-8">
 						<h3 id="poemTitle" class="col-12">>></h3>
 						<h4 id="poemAuthor" class="col-12">&nbsp</h4>
 					</div>
-		
+
 					<div id="botBtn" class="col-sm-12 col-md-4">
 						<button id="showBtn1" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Print">Print page</button>
 						<button id="showBtn2" class="Noprint col-sm-12 col-md-6 offset-md-5 btn" title="Download">Download</button>
@@ -116,18 +120,18 @@
 
 	<div class="container-fluid" id="drawing">
 	<!--startprint1-->
-	
+
 		<div class="row" id="svgBox">
 			<svg id="svg1" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
-					
+
 			</svg>
 		</div>
-	
+
 
 	<!--endtprint1-->
 	</div>
 
-	<div class="container-fuild">
+	<div class="container-fuild Noprint">
 		<div class="row">
 			<div class="holder col-12 d-none d-md-block"></div>
 			<div id="gallery" class="col-sm-12 col-md-10 col-lg-8 col-xl-8 offset-md-1 offset-lg-2 offset-xl-2">
@@ -136,10 +140,10 @@
 		</div>
 	</div>
 
-	
 
 
-	
+
+
 	<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="./js/bootstrap.js"></script>
 </body>

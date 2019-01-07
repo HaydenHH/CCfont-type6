@@ -122,8 +122,25 @@ window.onload = function(){
 	}
 	//-------------------------
 
-	
-	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4" src="${link}"></div>`;
+	let bSvg = Snap('#beginSvg')
+
+	let createBeginSvg = () => {
+
+		const ww = window.screen.width,
+					wh = window.screen.height;
+
+		bSvg.attr({
+			width:ww,
+			height:wh
+		})
+
+		bSvg.paper.circle(ww/2,wh/2,200)
+	}
+
+	createBeginSvg()
+
+	//create Gallery
+	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4 img-responsive" src="${link}">`;
 	let ranListSet = new Set()
 	const imgQ = 9;
 	do {
@@ -131,7 +148,7 @@ window.onload = function(){
 	} while (ranListSet.size<imgQ);
 
 	const ranList = Array.from(ranListSet);
-	
+
 
 	for(let link of ranList.values()){
 		//lo(i)
@@ -140,7 +157,7 @@ window.onload = function(){
 
 	Array.from(document.getElementsByClassName('gaImg')).forEach((t)=> {
 		t.addEventListener('click', (t)=>{
-			
+
 			let href = t.target.src
 			$('body').append(`
 				<div class="viewImg">
@@ -151,6 +168,24 @@ window.onload = function(){
 					</button>
 				</div>
 			`)
+
+			let viewMotion = () =>{
+				let imgBigger = anime({
+					targets:'.viewImg img',
+					opacity:1,
+					duration:200,
+					easing: 'linear'
+				})
+
+				let bgDarken = anime({
+					targets:'.viewImg',
+					opacity:1,
+					duration:200,
+					easing: 'linear'
+				})
+			}
+
+			viewMotion()
 
 			$('#closeImg').click(function () {
 				$('.viewImg').fadeOut();
@@ -163,18 +198,18 @@ window.onload = function(){
 
 	//----------------
 
-	
-	$.ajax({
-		url: 'https://v2.jinrishici.com/one.json',
-		xhrFields: {
-			withCredentials: true
-		},
-		success: function (result) {
-			let poemSenten = Array.from(result.data.origin.content)
-			let poemAuthor = result.data.origin
-			getFirstPoem(poemSenten, poemAuthor)
-		}
-	});
+
+	// $.ajax({
+	// 	url: 'https://v2.jinrishici.com/one.json',
+	// 	xhrFields: {
+	// 		withCredentials: true
+	// 	},
+	// 	success: function (result) {
+	// 		let poemSenten = Array.from(result.data.origin.content)
+	// 		let poemAuthor = result.data.origin
+	// 		getFirstPoem(poemSenten, poemAuthor)
+	// 	}
+	// });
 
 	const svgNext = Snap('#nextBtn1')
 	svgNext.attr({
@@ -199,34 +234,34 @@ window.onload = function(){
 		},500,mina.easeout)
 	});
 
-	
-	function getFirstPoem(data,auth) { 
+
+	function getFirstPoem(data,auth) {
 		let sen = new Array;
 		sen = data
 		lo(auth)
-		document.getElementById('poemTitleHead').innerText = auth.title 
+		document.getElementById('poemTitleHead').innerText = auth.title
 		document.getElementById('poemAuthorHead').innerText = '(' + auth.dynasty + ')' + auth.author
 		let sentenceBox = document.getElementsByClassName('sentences')
 		for(let sentences of sen.values()){
 			$('#poem').append(`<div class="sentences">${sentences}</div>`)
 			if(sentenceBox.length >10){
-				
+
 			}
 		}
 
 		//let sentenceBox = document.getElementsByClassName('sentences')
 
 		for (let i = 0; i < sentenceBox.length;i++){
-			
+
 			let sentence = Array.from(sentenceBox[i].innerHTML)
 			sentenceBox[i].innerHTML = "&nbsp"
 			let thisBox = sentenceBox[i]
 			for(let words of sentence.values()){
 				words.replace('。','。</br>')
-				
+
 				thisBox.insertAdjacentHTML('beforeend',`<p class="poemWords">${words}</p>`)
 			}
-			
+
 		}
 		wordsMotion()
 	 }
@@ -245,7 +280,7 @@ window.onload = function(){
 			}
 		});
 	})
-	
+
 
 
 	function wordsMotion() {
@@ -257,10 +292,10 @@ window.onload = function(){
 
 		do {
 			ranWordsList.add(ranIndex(words))
-			
+
 		}
 		while (ranWordsList.size < motionQ);
-		
+
 		var motion = anime({
 			targets: ".poemWords",
 			translateX: function (el, i, l) {
@@ -273,7 +308,7 @@ window.onload = function(){
 			duration: function (el, i, l) {
 				return 3000 + (i * rNF(300));
 			}
-			
+
 		});
 
 		clickWord()
@@ -310,19 +345,19 @@ window.onload = function(){
 					'class':'stroNum',
 					'font':'future'
 				})
-				
+
 				rect.attr({
 					 fill:'hsl(' + i*10 + ',' + i*20 + ',' + i*15 + ')'
 				})
 				 Snap.animate(0, lineW - i * [lineW/obj.getStro], function (val) {
 				 	rect.attr({
 						 width: val
-						
+
 				 	});
 				 }, 500+i*50,mina.easein);
 			}
 
-			
+
 
 			lo(obj.getTone)
 			const toneTrans = [0,0,'-10deg',0,'15deg']
@@ -349,7 +384,7 @@ window.onload = function(){
 				duration: 5000
 			})
 
-			
+
 		})
 		// bigWordHover()
 
