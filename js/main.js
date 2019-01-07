@@ -129,10 +129,10 @@ window.onload = function(){
 	}
 	//-------------------------
 
+	let bSvg = Snap('#beginSvg')
 
 
-	let createBeginSvg = () => {
-		let bSvg = Snap('#beginSvg')
+
 		const ww = $(window).width()
 		const	wh = $(window).height()
 
@@ -174,6 +174,13 @@ window.onload = function(){
 		let bGp = bSvg.g(bRect,bCir,bTrg)
 
 		bGp.click(()=>{
+
+			$('#bigWord').fadeIn(1500)
+
+			$('#bigTrans').fadeIn(1500)
+			$('#poem').fadeIn(1500)
+			$('.poemHead').fadeIn(1500)
+
 			$('#poem').children().remove()
 			$.ajax({
 				url: 'https://v2.jinrishici.com/one.json',
@@ -188,27 +195,24 @@ window.onload = function(){
 			});
 		})
 
-		bGp.hover(()=>{
-			let shapeOpen = ()=>{
-				bCir.animate({
-						fill:cc,
-				},300)
-				bTrg.animate({
-						fill:tc,
-						transform:`rotate(0,${[x3]}) tranlate(${-0.5*r},${0.5*r})`
-				},300)
-				bRect.animate({
-						fill:rc,
-						transform:`rotate(0,${x},${y}) translate(${r},${-0.3*r}) scale(0.8)`
-				},300)
-			}
+		let shapeOpen = ()=>{
+			bCir.animate({
+					fill:cc,
+			},300)
+			bTrg.animate({
+					fill:tc,
+					transform:`rotate(0,${[x3]}) tranlate(${-0.5*r},${0.5*r})`
+			},300)
+			bRect.animate({
+					fill:rc,
+					transform:`rotate(0,${x},${y}) translate(${r},${-0.3*r}) scale(0.8)`
+			},300)
+		}
 
-
-			bCir.click((t)=>{
-
-			})
-
-		},()=>{
+		let shapeClose = ()=>{
+			bCir.animate({
+					fill:bgc,
+			},300)
 			bTrg.animate({
 					fill:bgc,
 					transform:`rotate(30,${[x3]}) `
@@ -217,13 +221,25 @@ window.onload = function(){
 					fill:bgc,
 					transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
 			},300)
-		})
-	}
+		}
 
-	createBeginSvg()
+
+
+
+
+
+
+
+
+
+
+
+	//createBeginSvg()
+
 	window.onresize = ()=>{
-		Snap.selectAll('.bgShape').remove()
-		createBeginSvg()
+		// Snap.selectAll('.bgShape').remove()
+		// createBeginSvg()
+		document.location.reload()
 	}
 
 
@@ -409,6 +425,8 @@ window.onload = function(){
 	})
 
 	function clickWord() {
+
+
 		$('.poemWords').click((t)=> {
 			document.getElementById('bigWord').innerHTML = t.target.innerHTML
 			anime({
@@ -423,11 +441,11 @@ window.onload = function(){
 
 			for(let i=0;i<obj.getStro;i++){
 				let lineW = window.screen.width/2
-				let rect = s2.paper.rect(0, 100, 0, 10)
+				let rect = s2.paper.rect(0, 100, 0, 5)
 
 				s2.selectAll('.stroNum').remove()
 				let text2 = s2.paper.text(10, 80,`
-					Strokes:${[i+1]} Tone:${nameOfTone[obj.getTone]}
+					Strokes:${[i+1]} Tone:${nameOfTone[obj.getTone]} Radical:${obj.getRadi}
 				`).attr({
 					'font-size': '2em',
 					'fill': '#4d4d4d',
@@ -447,8 +465,8 @@ window.onload = function(){
 			}
 
 
-
-			lo(obj.getTone)
+			$('#bigTone').fadeIn(1500)
+			// lo(obj)
 			const toneTrans = [0,0,'-10deg',0,'15deg']
 			const toneTS1 = ['90deg', 0, 0, '30deg', 0]
 			const toneTS2 = [0, 0, 0, '-30deg', 0]
@@ -472,6 +490,50 @@ window.onload = function(){
 				rotate: toneTS2[obj.getTone],
 				duration: 5000
 			})
+
+			let ww = screen.width
+			let wh = screen.height
+
+			let getDT = [a,b,c] =['TONE:','STROKES:','RADICALS:']
+			let getData = [gt,gs,gr] = [obj.getTone,obj.getStro,obj.getRadi]
+
+
+			bSvg.selectAll('.attrC').remove()
+
+			$('#introData').text('')
+
+			for(let index of getData.keys()){
+				$('#introData').append(`<a class="introDataBtn col-12">${getDT[index]}${getData[index]}</a>`)
+			}
+
+			$('.introDataBtn').click(function(){
+					this.remove()
+					if($('.introDataBtn').length<1){
+						shapeOpen()
+						$('#bigWord').fadeOut(1500)
+						$('#bigTone').fadeOut(1500)
+						$('#bigTrans').fadeOut(1500)
+						$('#poem').fadeOut(1500)
+						$('.poemHead').fadeOut(1500)
+
+						$('#bigWord').text('')
+						$('#bigTrans').text('')
+
+						bGp.click(()=>{
+							shapeClose()
+						})
+					}
+			})
+
+
+
+
+
+
+
+
+
+
 
 
 		})

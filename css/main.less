@@ -1,5 +1,6 @@
 // out: ../css/main.css, sourcemap: true, compress: true
 @yel:rgb(237, 195, 41);
+@blu:#2953ED;
 @dark:#0c032f;
 @gre:#4d4d4d;
 @whi:#f5f6f0;
@@ -67,13 +68,27 @@ body::-webkit-scrollbar-thumb,#giveBox ul::-webkit-scrollbar-thumb{
 	top:0%;
 	z-index: 50;
 	text-align: center;
+
+	#introData{
+		display: block;
+		position: absolute;
+		// width: 150px;
+		left: 45%;
+		top: 30vh;
+		.introDataBtn{
+			color: @whi;
+			background-color:@blu;
+			display: block;
+			padding: 10px 20px;
+			transition: 1s;
+			cursor:pointer;
+			&:hover{
+				background-color: darken(@blu,20%);
+			}
+		}
+	}
 	#beginSvg{
 		width:100%;
-	}
-	i{
-		position: absolute;
-		left: 45%;
-		top: 40vh;
 	}
 }
 
