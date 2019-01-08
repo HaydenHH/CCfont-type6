@@ -5,7 +5,7 @@ window.onload = function(){
 	anime({
 		targets:'#logo',
 		backgroundColor: 'rgb(237, 195, 41)',
-		duration:300,
+		duration:500,
 		easing: 'linear'
 	})
 
@@ -540,7 +540,7 @@ window.onload = function(){
 
 			anime({
 				targets:'.introDataBtn',
-				translateX:'150px',
+				translateX:'100px',
 				duration: function (el, i, l) {
 					return 500 + (i * 100);
 				},
