@@ -1,3 +1,4 @@
+var CBL = new Array
 $(function(){
 
 	const imgQ = 160
@@ -33,7 +34,8 @@ $(function(){
 
 
 	let basicG = new Array
-	let CBL = new Array
+	
+	
 	let CB = new Object
 
 	let BO = new Array
@@ -98,6 +100,9 @@ $(function(){
 	getColorFromSVG('T3')
 	getColorFromSVG('T2')
 	getColorFromSVG('T1')
+
+	lo(CBL)
+	
 
 	function getBasicFromSVG(name){
 
@@ -1094,3 +1099,4 @@ $(function(){
 
 
 })
+

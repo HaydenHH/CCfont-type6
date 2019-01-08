@@ -478,7 +478,7 @@ window.onload = function(){
 				let text2 = s2.paper.text(10, 80,`
 					Strokes:${[i+1]} Tone:${nameOfTone[obj.getTone]} Radical:${obj.getRadi}
 				`).attr({
-					'font-size': '2em',
+					'font-size': '1.5em',
 					'fill': '#4d4d4d',
 					'class':'stroNum',
 					'font':'future'
@@ -496,9 +496,9 @@ window.onload = function(){
 				 }, 500+i*50,mina.easein);
 			}
 
-
+			$('#bigTrans').fadeIn(1500)
 			$('#bigTone').fadeIn(1500)
-			// lo(obj)
+			
 			const toneTrans = [0,0,'-10deg',0,'15deg']
 			const toneTS1 = ['90deg', 0, 0, '30deg', 0]
 			const toneTS2 = [0, 0, 0, '-30deg', 0]
@@ -547,15 +547,15 @@ window.onload = function(){
 				 easing: 'easeInQuart'
 			})
 
-			let ranColor = [
-				['#F374A8', '#F35C9A', '#F3438B', '#F32B7D'],
-				['#00B695', '#009B7B', '#008062', '#00664B'],
-				['#B60021', '#B61230', '#B6243F', '#B6374E'],
-				['#006DC1', '#0055A5', '#003F8B', '#002A71'],
-				['#00A6FF', '#F374A8', '#C09A39', '#00B696']
-			]
-			
 
+			
+			let season = [sp,su,au,wi]=[CBL.slice(0,4),CBL.slice(4,8),CBL.slice(8,12),CBL.slice(12,16)]
+
+			let getColor=(t)=>{
+				let thisColor = season[t-1][rNF(4)].allColor
+				return thisColor[ranIndex(thisColor)]
+			}
+			
 			$('.introDataBtn:eq(0)').click(function () {
 				let toneStr = this.innerHTML.toString()
 				let endIndex = toneStr.indexOf(':')
@@ -563,20 +563,20 @@ window.onload = function(){
 
 				
 				bTrg.animate({
-					fill: ranColor[ranIndex(ranColor)][obj.getTone],
+					fill: getColor(obj.getTone),
 					transform: `rotate(${15-obj.getTone*5},${[x3]}) )`
 				}, 300)
 			})
 			$('.introDataBtn:eq(1)').click(function () {
 				bRect.animate({
-					fill: rc,
+					fill: getColor(obj.getTone),
 					transform: `rotate(0,${x2},${y2}) translate(${-r+obj.getStro*20},0)`
 				}, 300)
 			})
 			$('.introDataBtn:eq(2)').click(function () {
 				
 				bCir.animate({
-					fill: ranColor[ranIndex(ranColor)][obj.getTone],
+					fill: getColor(obj.getTone),
 					transform: `translate(${10-obj.getStro*2},${10-obj.getStro*2}) scale(${1-obj.getStro*0.01})`,
 				}, 300)
 			})
