@@ -1,14 +1,23 @@
 window.onload = function(){
 
 
+
+	anime({
+		targets:'#logo',
+		backgroundColor: 'rgb(237, 195, 41)',
+		duration:300,
+		easing: 'linear'
+	})
+
 	let lo = x => console.log(x)
 	let rNF = x => Math.floor(Math.random() * x)
 	let ranIndex = x => Math.floor(Math.random() * x.length)
 
-	let trm = (t,x)=>{
-		let m = Snap.Matrix
+	let trm = (t,x,y)=>{
+		let m = new Snap.Matrix()
+		m.translate(x,y)
 		if(t==='t'){
-			return m.translate(x)
+			return m
 		}
 	}
 
@@ -136,9 +145,16 @@ window.onload = function(){
 		const ww = $(window).width()
 		const	wh = $(window).height()
 
-		const bgc = 'rgb(237,185,41)'
-		let [cc,rc,tc] = ['red','#5D9741','#4D42CC']
-		let [x,y,r] = [ww/4,wh/2.5,ww/10]
+		const bgc = $('#logo').css('backgroundColor')
+		let [cc, rc, tc] = ['#00A6FF','#FF4D4D','#00AC8E']
+		if ($(window).width()<1068){
+			var BGsize = 5
+		}else{
+			var BGsize = 5
+		}
+		
+
+		let [x,y,r] = [ww/4,wh/2.5,wh/BGsize]
 		let [x2,y2,len] = [x-r,y,r*2]
 		let [x3,y3,len2] = [
 			[x-r,y+r],[x-r,y-r],[x-r+Math.sqrt((len*len)-(len/2*len/2)),y2]
@@ -158,6 +174,7 @@ window.onload = function(){
 
 		let bRect = bSvg.paper.rect(x,y-r,len,len).attr({
 			class:'bgShape',
+			id:'bgRect',
 			fill:bgc,
 			mixBlendMode:'multiply',
 			transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
@@ -171,16 +188,16 @@ window.onload = function(){
 			mixBlendMode:'overlay'
 		})
 
-		let bGp = bSvg.g(bRect,bCir,bTrg)
+		let bGp = bSvg.g(bRect,bCir,bTrg).attr({
+			class:'bGp'
+		})
 
 		bGp.click(()=>{
 
 			$('#bigWord').fadeIn(1500)
-
 			$('#bigTrans').fadeIn(1500)
 			$('#poem').fadeIn(1500)
 			$('.poemHead').fadeIn(1500)
-
 			$('#poem').children().remove()
 			$.ajax({
 				url: 'https://v2.jinrishici.com/one.json',
@@ -188,6 +205,7 @@ window.onload = function(){
 					withCredentials: true
 				},
 				success: function (result) {
+					$('#poem').children().remove()
 					let poemSenten = Array.from(result.data.origin.content)
 					let poemAuthor = result.data.origin
 					getFirstPoem(poemSenten, poemAuthor)
@@ -195,44 +213,57 @@ window.onload = function(){
 			});
 		})
 
+
+
+		bGp.hover(()=>{
+			$('#logo').css({
+				backgroundColor: 'rgb(237, 205, 21)'
+			})
+			
+			
+			bGp.animate({
+				transform: ` translate(0,-20)`,
+				//fill:'blue'
+			}, 300)
+		}, () => {
+			bGp.animate({
+				transform: `translate(0,0)`,
+				// fill: bgc
+			}, 300)
+			
+			$('#logo').css({
+				backgroundColor: 'rgb(237, 195, 41)'
+			})
+		})
+
 		let shapeOpen = ()=>{
 			bCir.animate({
-					fill:cc,
-			},300)
+					//fill:cc,
+			},300,mina.easeout)
 			bTrg.animate({
-					fill:tc,
+					//fill:tc,
 					transform:`rotate(0,${[x3]}) tranlate(${-0.5*r},${0.5*r})`
-			},300)
+			},300,mina.easeout)
 			bRect.animate({
-					fill:rc,
-					transform:`rotate(0,${x},${y}) translate(${r},${-0.3*r}) scale(0.8)`
-			},300)
+					//fill:rc,
+					transform:`rotate(0,${x},${y}) translate(${0.5*r},${-0.3*r}) scale(0.8)`
+			},300,mina.easeout)
 		}
 
 		let shapeClose = ()=>{
 			bCir.animate({
 					fill:bgc,
-			},300)
+					transform: `translate(0,0)`,
+			},150,mina.easein)
 			bTrg.animate({
 					fill:bgc,
 					transform:`rotate(30,${[x3]}) `
-			},300)
+			},150,mina.easein)
 			bRect.animate({
 					fill:bgc,
 					transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
-			},300)
+			},150,mina.easein)
 		}
-
-
-
-
-
-
-
-
-
-
-
 
 	//createBeginSvg()
 
@@ -371,20 +402,20 @@ window.onload = function(){
 		wordsMotion()
 	 }
 
-	// $('#resetPoemBtn').click(()=>{
-	// 	$('#poem').children().remove()
-	// 	$.ajax({
-	// 		url: 'https://v2.jinrishici.com/one.json',
-	// 		xhrFields: {
-	// 			withCredentials: true
-	// 		},
-	// 		success: function (result) {
-	// 			let poemSenten = Array.from(result.data.origin.content)
-	// 			let poemAuthor = result.data.origin
-	// 			getFirstPoem(poemSenten, poemAuthor)
-	// 		}
-	// 	});
-	// })
+	$('#resetPoemBtn').click(()=>{
+		$('#poem').children().remove()
+		$.ajax({
+			url: 'https://v2.jinrishici.com/one.json',
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function (result) {
+				let poemSenten = Array.from(result.data.origin.content)
+				let poemAuthor = result.data.origin
+				getFirstPoem(poemSenten, poemAuthor)
+			}
+		});
+	})
 
 
 
@@ -454,7 +485,8 @@ window.onload = function(){
 				})
 
 				rect.attr({
-					 fill:'hsl(' + i*10 + ',' + i*20 + ',' + i*15 + ')'
+					 fill:'hsl(' + i*10 + ',' + i*20 + ',' + i*15 + ')',
+					 class:'dataBar'
 				})
 				 Snap.animate(0, lineW - i * [lineW/obj.getStro], function (val) {
 				 	rect.attr({
@@ -506,20 +538,79 @@ window.onload = function(){
 				$('#introData').append(`<a class="introDataBtn col-12">${getDT[index]}${getData[index]}</a>`)
 			}
 
+			anime({
+				targets:'.introDataBtn',
+				translateX:'150px',
+				duration: function (el, i, l) {
+					return 500 + (i * 100);
+				},
+				 easing: 'easeInQuart'
+			})
+
+			let ranColor = [
+				['#F374A8', '#F35C9A', '#F3438B', '#F32B7D'],
+				['#00B695', '#009B7B', '#008062', '#00664B'],
+				['#B60021', '#B61230', '#B6243F', '#B6374E'],
+				['#006DC1', '#0055A5', '#003F8B', '#002A71'],
+				['#00A6FF', '#F374A8', '#C09A39', '#00B696']
+			]
+			
+
+			$('.introDataBtn:eq(0)').click(function () {
+				let toneStr = this.innerHTML.toString()
+				let endIndex = toneStr.indexOf(':')
+				let tone = toneStr.slice(endIndex+1,toneStr.length)
+
+				
+				bTrg.animate({
+					fill: ranColor[ranIndex(ranColor)][obj.getTone],
+					transform: `rotate(${15-obj.getTone*5},${[x3]}) )`
+				}, 300)
+			})
+			$('.introDataBtn:eq(1)').click(function () {
+				bRect.animate({
+					fill: rc,
+					transform: `rotate(0,${x2},${y2}) translate(${-r+obj.getStro*20},0)`
+				}, 300)
+			})
+			$('.introDataBtn:eq(2)').click(function () {
+				
+				bCir.animate({
+					fill: ranColor[ranIndex(ranColor)][obj.getTone],
+					transform: `translate(${10-obj.getStro*2},${10-obj.getStro*2}) scale(${1-obj.getStro*0.01})`,
+				}, 300)
+			})
+
+			var OP
 			$('.introDataBtn').click(function(){
 					this.remove()
-					if($('.introDataBtn').length<1){
-						shapeOpen()
-						$('#bigWord').fadeOut(1500)
-						$('#bigTone').fadeOut(1500)
-						$('#bigTrans').fadeOut(1500)
-						$('#poem').fadeOut(1500)
-						$('.poemHead').fadeOut(1500)
+					
+					lo(this.innerHTML)
 
-						$('#bigWord').text('')
-						$('#bigTrans').text('')
+
+					if($('.introDataBtn').length<1){
+						
+						 OP = setTimeout(() => {
+							shapeOpen()
+						}, 1500);
+						OP
+						
+						let remove =()=>{
+							$('#bigWord').fadeOut(1000)
+							$('#bigTone').fadeOut(1000)
+							$('#bigTrans').fadeOut(1000)
+							$('#poem').fadeOut(1000)
+							$('.poemHead').fadeOut(1000)
+							s2.selectAll('.stroNum').remove()
+							s2.selectAll('.dataBar').remove()
+							$('#bigWord').text('')
+							$('#bigTrans').text('')
+						}
+						remove()
+						
 
 						bGp.click(()=>{
+							clearTimeout(OP)
 							shapeClose()
 						})
 					}
