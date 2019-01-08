@@ -24,7 +24,7 @@
 	}
 	</script>
 	<script type="text/javascript" src="./js/svg-crowbar-2.js"></script>
-	
+
 
 	<script type="text/javascript" src="./js/jquery-3.3.1.js"></script>
 	<script type="text/javascript" src="./js/snap.svg.js"></script>
@@ -44,7 +44,7 @@
 	</style>
 </head>
 <body>
-	<div id="intro" class="container-fuild d-none d-md-block">
+	<div id="intro" class="container-fuild d-none d-md-none d-lg-block">
 		<div class="row">
 				<div id='introData'></div>
 		</div>
@@ -53,25 +53,26 @@
 	<div id="navBox" class="container-fluid Noprint">
 
 		<div id="logo" class="row">
-			<div class="col-12">
-				<h1 class="col-12">SHAPE OF POEM</h1>
-				<h6 id="poemTitleHead" class="poemHead"></h6>
-				<h5 id="poemAuthorHead" class="poemHead"></h5>
-				<div id="bigTrans" class="col-sm-5">&nbsp</div>
-				<div id="poem" class="col-sm-12 col-md-8 col-lg-4">
 
-				</div>
-				<div id="bigTone" class="position-absolute">
-						<span class="toneSymbol s1"></span>
-						<span class="toneSymbol s2"></span>
+				<div class="col-12">
+					<h1 class="col-12">SHAPE OF POEM</h1>
+					<h6 id="poemTitleHead" class="poemHead"></h6>
+					<h5 id="poemAuthorHead" class="poemHead"></h5>
+					<div id="bigTrans" class="col-sm-5">&nbsp</div>
+					<div id="poem" class="col-sm-12 col-md-8 col-lg-4"></div>
+					<div id="bigTone" class="position-absolute">
+							<span class="toneSymbol s1"></span>
+							<span class="toneSymbol s2"></span>
+					</div>
+
+					<div id="bigWord" class="col-sm-6 col-lg-7 position-absolute"></div>
+					<svg id="wordData" class="col-12 position-absolute"></svg>
+					<div id="nextBtn" class="col-3 d-sm-block d-md-none">
+
+						<svg id="nextBtn1"></svg>
+					</div>
 				</div>
 
-				<div id="bigWord" class="col-sm-6 col-lg-7 position-absolute"></div>
-				<svg id="wordData" class="col-sm-12 position-absolute"></svg>
-				<div id="nextBtn" class="col-3 d-sm-block d-md-none">
-					<svg id="nextBtn1"></svg>
-				</div>
-			</div>
 
 
 		</div>
@@ -82,17 +83,22 @@
 		</div>
 		<div class="row">
 			<div class="holder col-12 d-none d-md-block"></div>
-			<div class="control Noprint col-12 col-md-6 offset-md-3">
+			<div class="control Noprint col-sm-12 col-md-6 offset-md-3">
 
 				<div class="row">
 
 					<textarea id="inp1" class="col-12 rounded" placeholder="↙ Translating, if you typed English"></textarea>
 				</div>
 				<div class="row">
-					<button id="btn3" class="col-sm-12 col-md-12 col-lg-2 btn rounded-left">TRANSL</button>
-					<button id="btn2" class="col-sm-12 col-md-12 col-lg-5 btn">DRAW</button>
+					<button id="btn3" class="col-sm-6 col-md-6 col-lg-2 btn border-right-0 rounded-left">TRANSL</button>
+					<div id="btn2" class="col-sm-6 col-md-6 col-lg-5 rounded-right btn">
+							<p>DRAW</p>
+							<svg id="btn2Svg"></svg>
+					</div>
 					<div class="d-none d-md-block col-lg-1"></div>
-					<button id="btn1" class="col-sm-12 col-md-12 col-lg-3 btn">GET A POEM</button>
+					<button id="btn1" class="col-sm-12 col-md-12 col-lg-4 btn">GET A POEM
+
+					</button>
 
 
 				</div>

@@ -29,13 +29,13 @@ $(function(){
 
 
 
-	
+
 	let ELE = new Array
 
 
 	let basicG = new Array
-	
-	
+
+
 	let CB = new Object
 
 	let BO = new Array
@@ -102,7 +102,7 @@ $(function(){
 	getColorFromSVG('T1')
 
 	lo(CBL)
-	
+
 
 	function getBasicFromSVG(name){
 
@@ -131,7 +131,7 @@ $(function(){
 
 	}
 	getBasicFromSVG('A1')
-	
+
 	getBasicFromSVG('N2')
 	getBasicFromSVG('N1')
 	getBasicFromSVG('N3')
@@ -154,7 +154,7 @@ $(function(){
 	getBasicFromSVG('P1')
 	getBasicFromSVG('P2')
 
-	
+
 
 	function getPatternFromSVG(name){
 
@@ -206,37 +206,44 @@ $(function(){
 	$('#btn1').click(function(event) {
 		document.getElementById('trans').innerHTML = '&nbsp'
 		getAPoem()
-		
+
 	});
 
-	
+	let btn2S = Snap('#btn2Svg')
 
 	$('#btn2').click(function(event){
 		var wordAttr = getAttrOfWord()
-		
-		
-
-
 		sortData(wordAttr)
-		
-
-		
 	})
 
 	$('#btn2').hover(function(b){
 		let inpText = document.getElementById('inp1').value
 		if(inpText === ''){
-			this.innerHTML = 'RANDOM DRAW'
+			$('#btn2 p').text('RANDOM DRAW')
 		}else{
-			this.innerHTML = 'DRAW WRITING'
-			
+			$('#btn2 p').text('DRAW WRITING')
+
 		}
-		
+
+		let btnO = anime({
+			targets:'.btnC',
+			fill:'rgb(237, 195, 41)',
+			r:$('#btn2').width()/1.8,
+			duration:500
+		})
+
 	},function(){
-		this.innerHTML = 'DRAW'
+		$('#btn2 p').text('DRAW')
+
+		let btnC = anime({
+			targets:'.btnC',
+			r:$('#btn2').width()/2.5,
+			duration:1000
+		})
+
 	})
 
-	$('#btn3').click(function (e) { 
+	$('#btn3').click(function (e) {
 		let inpText = document.getElementById('inp1').value
 
 		let appid = '20190105000254845';
@@ -264,8 +271,8 @@ $(function(){
 				document.getElementById('inp1').value = data.trans_result[0].dst
 			}
 		});
-		
-		
+
+
 	});
 
 	$('#showBtn1').click(function(){
@@ -277,7 +284,7 @@ $(function(){
 
 
 	function getAPoem(){
-		
+
 
 		$.ajax({
 			url: 'https://api.gushi.ci/all.json',
@@ -289,10 +296,30 @@ $(function(){
 			poAuthor = data.author
 			poTitle = data.origin
 			type.val(poAry)
-			// if (poTitle) {
-			// 	document.title = poTitle
-			// }
-			
+
+			btn2S.selectAll('.btnC').remove()
+
+			var btnC = btn2S.paper.circle($('#btn2').width()/2,$('#btn2').height()/2,10).attr({
+				fill:'#2953ED',
+				class:'btnC'
+			})
+
+			var btnCs =btn2S.paper.circle($('#btn2').width()/2,$('#btn2').height()/2,10).attr({
+				fill:'white',
+				class:'btnCs'
+			})
+
+			anime({
+				targets:'.btnC',
+				r:$('#btn2').width()/2.5,
+				duration:1000
+			})
+			anime({
+				targets:'.btnCs',
+				r:$('#btn2').width()/2.55,
+				duration:2500
+			})
+
 
 		})
 		.fail(function() {
@@ -304,14 +331,14 @@ $(function(){
 		let all = type.val().replace(/\s+/g,"，")
 		document.getElementById('poemTitle').innerHTML = '&nbsp'
 		document.getElementById('poemAuthor').innerHTML = '&nbsp'
-		
 
-		
+
+
 
 		let appid = '20190105000254845';
 		let key = 'U0V67jcwJv9A0sPrByhj';
 		let salt = (new Date).getTime();
-		
+
 		// 多个query可以用\n连接  如 query='apple\norange\nbanana\npear'
 		let from = 'zh';
 		let to = 'en';
@@ -359,7 +386,7 @@ $(function(){
 		}else{
 			document.getElementById('poemTitle').innerHTML = ''
 		}
-		
+
 		allStroke.splice(0)
 		allTone.splice(0)
 		allRadicals.splice(0)
@@ -470,7 +497,7 @@ $(function(){
 			}
 	}
 
-	
+
 
 	function sB(type,count){
 				//sorted shape, max 10 counts
@@ -704,9 +731,9 @@ $(function(){
 				ranLoc.num = ranTAttr[rNF(ranTAttr.length)].num
 				ranLoc.id = ranLoc.type + ranLoc.num
 
-				
+
 				return [basicG[rNF(basicG.length)].na]
-				
+
 			}else{
 				return environUse
 				//返回能识别的数组
@@ -716,7 +743,7 @@ $(function(){
 		var eleCount = d.length //键入的数量
 
 		//let US = ['B5']
-		
+
 		let US = Flocation(d)
 		//临时选用的基础形状数组
 
@@ -737,9 +764,9 @@ $(function(){
 					for(var ii=0,l=uC.length;ii<l;ii++){
 						for(var iii=0,lll=basicG.length;iii<lll;iii++){
 							if(basicG[iii].na == uC[rNF(uC.length)]){
-								
+
 								var out = basicG[iii][rNF(basicG[iii].length)]
-								
+
 								basic[i] = out.shape
 								basic[i].type = out.type
 							}
@@ -776,7 +803,7 @@ $(function(){
 		var ShapeUsedList = sB(CB,2)
 
 
-		
+
 		s.selectAll('.eleG').remove()
 		$('#allEle').remove()
 
@@ -785,7 +812,7 @@ $(function(){
 
 			let indexSize = x => {return 2.5+rNF(x)/24}
 
-			
+
 				createShapeGroup(
 					sB(CB, 2), //basic shape
 					i, //index
@@ -798,10 +825,10 @@ $(function(){
 					rNF(8), //pattern type
 					dataCol[rNF(l)].stro //笔画数 pattern ele size
 				)
-			
 
 
-				
+
+
 
 		}
 		var allEle = s.paper.g().attr({id:'allEle'})
@@ -824,7 +851,7 @@ $(function(){
 			alert('You have not create graphics')
 		}
 	});
-			
+
 
 
 
@@ -940,11 +967,11 @@ $(function(){
 				return p
 				//双竖线
 			}else if(type==4){
-				
+
 				var a = s.paper.rect(0,0,10,5).attr({
 					transform: "skewY(30)"
 				})
-				
+
 				var p = s.paper.g(a).attr({
 					fill:color
 				}).pattern(0,0,10,11)
@@ -985,10 +1012,10 @@ $(function(){
 
 
 	function createShapeGroup(x,i,all,type,colorList,sym,tone,size,pT,pS){
-			
+
 			var colorA = colorList[rNF(colorList.length)]
 			var colorB = colorList[rNF(colorList.length)]
-				
+
 			var shape = s.use(x).attr({
 		 	fill: colorA,
 		 	class: colorA + ' ' +'eleBasic',
@@ -1016,7 +1043,7 @@ $(function(){
 		 	transform: trans(rN(pS*1.5),rN(pS*0.5),size,rN(2))
 		 })
 
-		
+
 		ELE[i] = s.paper.g(shape,pat).attr({
 				transform:trans(LyR(i).x,LyR(i).y,1,0),
 				mixBlendMode: 'overlay',
@@ -1060,21 +1087,23 @@ $(function(){
 
 
 	var finish = function(){
-		
-		
-		// let motionA = anime({
-		// 	targets: `#eleG${rNF(100)} use`,
-		// 	translateY: 50,
-		// 	direction: 'alternate',
-		// 	loop: true
-		// });
-		
-		
-
-			
 
 
-		
+		let btnCClick = anime({
+			targets:'.btnC',
+			fill:'red',
+			duration:2000
+		})
+
+		var promise = btnCClick.finished.then(()=>{
+			alert('1')
+		});
+
+
+
+
+
+
 
 	}
 
@@ -1099,4 +1128,3 @@ $(function(){
 
 
 })
-

@@ -152,7 +152,7 @@ window.onload = function(){
 		}else{
 			var BGsize = 5
 		}
-		
+
 
 		let [x,y,r] = [ww/4,wh/2.5,wh/BGsize]
 		let [x2,y2,len] = [x-r,y,r*2]
@@ -219,8 +219,8 @@ window.onload = function(){
 			$('#logo').css({
 				backgroundColor: 'rgb(237, 205, 21)'
 			})
-			
-			
+
+
 			bGp.animate({
 				transform: ` translate(0,-20)`,
 				//fill:'blue'
@@ -230,7 +230,7 @@ window.onload = function(){
 				transform: `translate(0,0)`,
 				// fill: bgc
 			}, 300)
-			
+
 			$('#logo').css({
 				backgroundColor: 'rgb(237, 195, 41)'
 			})
@@ -475,7 +475,7 @@ window.onload = function(){
 				let rect = s2.paper.rect(0, 100, 0, 5)
 
 				s2.selectAll('.stroNum').remove()
-				let text2 = s2.paper.text(10, 80,`
+				let text2 = s2.paper.text(0, 80,`
 					Strokes:${[i+1]} Tone:${nameOfTone[obj.getTone]} Radical:${obj.getRadi}
 				`).attr({
 					'font-size': '1.5em',
@@ -498,7 +498,7 @@ window.onload = function(){
 
 			$('#bigTrans').fadeIn(1500)
 			$('#bigTone').fadeIn(1500)
-			
+
 			const toneTrans = [0,0,'-10deg',0,'15deg']
 			const toneTS1 = ['90deg', 0, 0, '30deg', 0]
 			const toneTS2 = [0, 0, 0, '-30deg', 0]
@@ -548,20 +548,20 @@ window.onload = function(){
 			})
 
 
-			
+
 			let season = [sp,su,au,wi]=[CBL.slice(0,4),CBL.slice(4,8),CBL.slice(8,12),CBL.slice(12,16)]
 
 			let getColor=(t)=>{
 				let thisColor = season[t-1][rNF(4)].allColor
 				return thisColor[ranIndex(thisColor)]
 			}
-			
+
 			$('.introDataBtn:eq(0)').click(function () {
 				let toneStr = this.innerHTML.toString()
 				let endIndex = toneStr.indexOf(':')
 				let tone = toneStr.slice(endIndex+1,toneStr.length)
 
-				
+
 				bTrg.animate({
 					fill: getColor(obj.getTone),
 					transform: `rotate(${15-obj.getTone*5},${[x3]}) )`
@@ -574,7 +574,7 @@ window.onload = function(){
 				}, 300)
 			})
 			$('.introDataBtn:eq(2)').click(function () {
-				
+
 				bCir.animate({
 					fill: getColor(obj.getTone),
 					transform: `translate(${10-obj.getStro*2},${10-obj.getStro*2}) scale(${1-obj.getStro*0.01})`,
@@ -584,17 +584,17 @@ window.onload = function(){
 			var OP
 			$('.introDataBtn').click(function(){
 					this.remove()
-					
+
 					lo(this.innerHTML)
 
 
 					if($('.introDataBtn').length<1){
-						
+
 						 OP = setTimeout(() => {
 							shapeOpen()
 						}, 1500);
 						OP
-						
+
 						let remove =()=>{
 							$('#bigWord').fadeOut(1000)
 							$('#bigTone').fadeOut(1000)
@@ -607,7 +607,7 @@ window.onload = function(){
 							$('#bigTrans').text('')
 						}
 						remove()
-						
+
 
 						bGp.click(()=>{
 							clearTimeout(OP)
