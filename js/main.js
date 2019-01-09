@@ -1,11 +1,18 @@
 window.onload = function(){
 
-
+	
 
 	anime({
 		targets:'#logo',
 		backgroundColor: 'rgb(237, 195, 41)',
 		duration:500,
+		easing: 'linear'
+	})
+	anime({
+		targets: '#beginSvg',
+		translateY:'50px',
+		
+		duration: 1500,
 		easing: 'linear'
 	})
 
@@ -139,85 +146,122 @@ window.onload = function(){
 	//-------------------------
 
 	let bSvg = Snap('#beginSvg')
+	let pSvg = Snap('#pSvg')
 
+	var goStop = false
+	var down = true
 
+	const ww = $(window).width()
+	const	wh = $(window).height()
+	const bgc = $('#logo').css('backgroundColor')
+	const bgcL = 'rgb(237, 205, 21)'
+	let [cc, rc, tc] = ['#00A6FF','#FF4D4D','#00AC8E']
+	if ($(window).width()<1068){
+		var BGsize = 5
+	}else{
+		var BGsize = 5
+	}
+	let [x,y,r] = [ww/4,wh/2.5,wh/BGsize]
+	let [x2,y2,len] = [x-r,y,r*2]
+	let [x3,y3,len2] = [
+		[x-r,y+r],[x-r,y-r],[x-r+Math.sqrt((len*len)-(len/2*len/2)),y2]
+	]
+	bSvg.attr({
+		width:ww,
+		height:wh
+	})
+	let bCir = bSvg.paper.circle(x,y,r).attr({
+		class:'bgShape',
+		fill:bgc,
+		opacity:0.8,
+		mixBlendMode:'overlay'
+	})
+	let bRect = bSvg.paper.rect(x,y-r,len,len).attr({
+		class:'bgShape',
+		id:'bgRect',
+		fill:bgc,
+		mixBlendMode:'multiply',
+		transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
+	})
+	let bTrg = bSvg.paper.polyline([x3,y3,len2]).attr({
+		class:'bgShape',
+		transform:`rotate(30,${[x3]})`,
+		fill:bgc,
+		opacity:1,
+		mixBlendMode:'overlay'
+	})
+	var bGp = bSvg.g(bRect,bCir,bTrg).attr({
+		class:'bGp'
+	})
+	bGp.click(()=>{
+		$('#bigWord').fadeIn(1500)
+		$('#bigTrans').fadeIn(1500)
+		$('#poem').fadeIn(1500)
+		$('.poemHead').fadeIn(1500)
+		$('#poem').children().remove()
+		$.ajax({
+			url: 'https://v2.jinrishici.com/one.json',
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function (result) {
+				$('#poem').children().remove()
+				let poemSenten = Array.from(result.data.origin.content)
+				let poemAuthor = result.data.origin
+				getFirstPoem(poemSenten, poemAuthor)
 
-		const ww = $(window).width()
-		const	wh = $(window).height()
-
-		const bgc = $('#logo').css('backgroundColor')
-		let [cc, rc, tc] = ['#00A6FF','#FF4D4D','#00AC8E']
-		if ($(window).width()<1068){
-			var BGsize = 5
-		}else{
-			var BGsize = 5
-		}
-
-
-		let [x,y,r] = [ww/4,wh/2.5,wh/BGsize]
-		let [x2,y2,len] = [x-r,y,r*2]
-		let [x3,y3,len2] = [
-			[x-r,y+r],[x-r,y-r],[x-r+Math.sqrt((len*len)-(len/2*len/2)),y2]
-		]
-
-		bSvg.attr({
-			width:ww,
-			height:wh
-		})
-
-		let bCir = bSvg.paper.circle(x,y,r).attr({
-			class:'bgShape',
-			fill:bgc,
-			opacity:0.8,
-			mixBlendMode:'overlay'
-		})
-
-		let bRect = bSvg.paper.rect(x,y-r,len,len).attr({
-			class:'bgShape',
-			id:'bgRect',
-			fill:bgc,
-			mixBlendMode:'multiply',
-			transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
-		})
-
-		let bTrg = bSvg.paper.polyline([x3,y3,len2]).attr({
-			class:'bgShape',
-			transform:`rotate(30,${[x3]})`,
-			fill:bgc,
-			opacity:1,
-			mixBlendMode:'overlay'
-		})
-
-		let bGp = bSvg.g(bRect,bCir,bTrg).attr({
-			class:'bGp'
-		})
-
-		bGp.click(()=>{
-
-			$('#bigWord').fadeIn(1500)
-			$('#bigTrans').fadeIn(1500)
-			$('#poem').fadeIn(1500)
-			$('.poemHead').fadeIn(1500)
-			$('#poem').children().remove()
-			$.ajax({
-				url: 'https://v2.jinrishici.com/one.json',
-				xhrFields: {
-					withCredentials: true
-				},
-				success: function (result) {
-					$('#poem').children().remove()
-					let poemSenten = Array.from(result.data.origin.content)
-					let poemAuthor = result.data.origin
-					getFirstPoem(poemSenten, poemAuthor)
+				let createWave = ()=>{
+					pSvg.selectAll('.pCir').remove()
+					let cX = $('#pSvg').width() / 2
+					let cY = $('#pSvg').height() / 2
+					for(let i=0;i<rNF(10);i++){
+						let center = [cX + rNF(300) - rNF(300), cY + rNF(300) - rNF(300)]
+						let size = cX/2-rNF(100)
+						let delay = i*100
+						let pCirL = pSvg.paper.circle(center[0], center[1], 10).attr({
+							fill: bgc,
+							opacity:0.5,
+							id: `pCirL${i}`,
+							class:'pCir'
+						})
+						let pCirS = pSvg.paper.circle(center[0], center[1], 10).attr({
+							fill:bgcL,
+							opacity:0.5,
+							id: `pCirS${i}`,
+							class:'pCir'
+						})
+						let moL = anime({
+							targets: `#pCirL${i}`,
+							r: size,
+							opacity: 0.2,
+							delay:delay,
+							duration: 2000
+						})
+						let moS = anime({
+							targets: `#pCirS${i}`,
+							
+							r: size-0.1,
+							delay:delay,
+							duration: 3500
+						})
+						var clearPCir = moL.finished.then(() => {
+							$('.pCir').fadeOut(300)
+						});
+					}
+					
 				}
-			});
-		})
 
+				$(window).one(createWave())
+
+				
+			}
+		});
+	})
 
 
 		bGp.hover(()=>{
 			$('#logo').css({
-				backgroundColor: 'rgb(237, 205, 21)'
+				backgroundColor: bgcL
 			})
 
 
@@ -248,28 +292,85 @@ window.onload = function(){
 					//fill:rc,
 					transform:`rotate(0,${x},${y}) translate(${0.5*r},${-0.3*r}) scale(0.8)`
 			},300,mina.easeout)
+
+			var mouseMotion = () =>{
+				goStop = false
+				if (goStop) {
+					document.getElementById('beginSvg').removeEventListener('mousemove')
+				}
+				function go(tar, x, y, xT, yT) {
+					
+					let tarA = tar.animate({
+						transform: `tranlate(${x/xT},${y/yT})`
+					}, 700, mina.easein);
+
+					
+				}
+				let bGpShape = bSvg.selectAll('.bgShape')
+
+				document.getElementById('beginSvg').addEventListener('mousemove',(e)=>{
+					if (goStop) {
+						return false
+					}
+					var target = e.target || e.srcElement,
+						rect = target.getBoundingClientRect(),
+						btWidth = rect.right - rect.left,
+						btHeight = rect.top - rect.bottom,
+						offsetX = e.clientX - rect.left,
+						offsetY = e.clientY - rect.top;
+
+					var cenX = btWidth / 2,
+						cenY = btHeight / 2;
+
+					var goX = [cenX - offsetX] / 0.5,
+						goY = [cenY - offsetY] / 0.5;
+
+						
+					go(bGpShape[0], goX, goY, 10, 15)
+					go(bGpShape[1], -goX, -goY, 15, 15)
+					go(bGpShape[2], goX, -goY, 3, 25)
+					
+				})
+
+				
+			}
+			mouseMotion()
+
 		}
 
 		let shapeClose = ()=>{
-			bCir.animate({
-					fill:bgc,
+			goStop = true
+
+
+			setTimeout(() => {
+				bCir.animate({
+					fill: bgc,
 					transform: `translate(0,0)`,
-			},150,mina.easein)
-			bTrg.animate({
-					fill:bgc,
-					transform:`rotate(30,${[x3]}) `
-			},150,mina.easein)
-			bRect.animate({
-					fill:bgc,
-					transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
-			},150,mina.easein)
+				}, 300, mina.easein)
+				bTrg.animate({
+					fill: bgc,
+					transform: `rotate(30,${[x3]}) `
+				}, 400, mina.easeout)
+				bRect.animate({
+					fill: bgc,
+					transform: `rotate(0,${x2},${y2}) translate(${-r},0)`
+				}, 500, mina.linear)
+			}, 1000);
+
+			if(down){
+				setTimeout(() => {
+					document.getElementById('inp1').scrollIntoView({
+						behavior: 'smooth',
+						block: 'center'
+					})
+				}, 1500);
+			}
+			down = false;
+			
 		}
 
-	//createBeginSvg()
 
 	window.onresize = ()=>{
-		// Snap.selectAll('.bgShape').remove()
-		// createBeginSvg()
 		document.location.reload()
 	}
 
@@ -278,27 +379,61 @@ window.onload = function(){
 	//create Gallery
 	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4 img-responsive" src="${link}">`;
 	let ranListSet = new Set()
-	const imgQ = 9;
+	const imgQ = imgLink.length;
+	let loadQ = 6
+
 	do {
 		ranListSet.add(imgLink[ranIndex(imgLink)])
-	} while (ranListSet.size<imgQ);
+	} while (ranListSet.size<loadQ);
 
-	const ranList = Array.from(ranListSet);
-
+	let ranList = Array.from(ranListSet);
 
 	for(let link of ranList.values()){
-		//lo(i)
 		$('#gallery').append(createImg(link))
 	}
+	
+	var Q = 0
+	$('#gaBtn').click((t)=>{
+		
+		if(Q<imgQ-6){
+			Q = Q + 3
+		}else{
+			alert('SORRY,NO MORE IMAGE (´ﾟдﾟ`)')
+			return false
+		}
+		
+		do {
+			ranListSet.add(imgLink[ranIndex(imgLink)])
+		} while (ranListSet.size < loadQ+Q);
+		
+		let arr = Array.from(ranListSet)
 
-	Array.from(document.getElementsByClassName('gaImg')).forEach((t)=> {
-		t.addEventListener('click', (t)=>{
+		let newLink = arr.slice(arr.length - 3, arr.length)
+		for(let link of newLink.values()){
+			let newLink = createImg(link)
+			
+			$('#gallery').append(newLink)
+			addEvt(Array.from(document.querySelectorAll('.gaImg:last-child')))
+			//lo(document.querySelector('.gaImg:last-child'))
+		}
+		t.target.scrollIntoView({
+			behavior: 'smooth',
+			block: 'center'
+		})
+		
+		
+		
+	})
 
+	let addEvt =(eles)=>{
+		
+		eles.forEach((t)=> {
+			t.addEventListener('click',cloBtn = (t)=>{
 			let href = t.target.src
 			$('body').append(`
 				<div class="viewImg">
 					<img src="${href}" class="img-responsive">
-					<button id="closeImg" class="btn">
+					<button class="closeImg btn">
 						<span id="span1"></span>
 						<span id="span2"></span>
 					</button>
@@ -323,15 +458,19 @@ window.onload = function(){
 
 			viewMotion()
 
-			$('#closeImg').click(function () {
-				$('.viewImg').fadeOut();
-				setTimeout(() => {
-					$('.viewImg').remove()
-				}, 1000);
-			  })
-		})
-	});
-
+			Array.from(document.getElementsByClassName('closeImg')).forEach((t)=>{
+				t.addEventListener('click',()=>{
+					$('.viewImg').fadeOut();
+					setTimeout(() => {
+						$('.viewImg').remove()
+					}, 1000);
+				})
+			})
+			
+			})
+		});
+	} 
+	addEvt(Array.from(document.getElementsByClassName('gaImg')))
 	//----------------
 
 
@@ -372,9 +511,7 @@ window.onload = function(){
 
 
 	function getFirstPoem(data,auth) {
-		let sen = new Array;
-		sen = data
-		lo(auth)
+		let sen = data
 		document.getElementById('poemTitleHead').innerText = auth.title
 		document.getElementById('poemAuthorHead').innerText = '(' + auth.dynasty + ')' + auth.author
 		let sentenceBox = document.getElementsByClassName('sentences')
@@ -384,8 +521,6 @@ window.onload = function(){
 
 			}
 		}
-
-		//let sentenceBox = document.getElementsByClassName('sentences')
 
 		for (let i = 0; i < sentenceBox.length;i++){
 
@@ -466,6 +601,8 @@ window.onload = function(){
 					color: '#4d4d4d',
 					duration:5000
 			})
+
+			
 
 			let obj = getAttr(t.target)[0]
 			const nameOfTone = ['Nature','Level','Rise','Fall&Rise','Fall']
@@ -552,6 +689,9 @@ window.onload = function(){
 			let season = [sp,su,au,wi]=[CBL.slice(0,4),CBL.slice(4,8),CBL.slice(8,12),CBL.slice(12,16)]
 
 			let getColor=(t)=>{
+				if(t=='0'){
+					t++
+				}
 				let thisColor = season[t-1][rNF(4)].allColor
 				return thisColor[ranIndex(thisColor)]
 			}
@@ -612,6 +752,7 @@ window.onload = function(){
 						bGp.click(()=>{
 							clearTimeout(OP)
 							shapeClose()
+							
 						})
 					}
 			})

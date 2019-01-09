@@ -226,18 +226,19 @@ $(function(){
 		}
 
 		let btnO = anime({
-			targets:'.btnC',
+			targets:'.btnCs',
 			fill:'rgb(237, 195, 41)',
-			r:$('#btn2').width()/1.8,
-			duration:500
+			r:$('#btn2').width()/8,
+			duration:1000
 		})
 
 	},function(){
 		$('#btn2 p').text('DRAW')
 
 		let btnC = anime({
-			targets:'.btnC',
-			r:$('#btn2').width()/2.5,
+			targets:'.btnCs',
+			fill:'rgb(237, 195, 41)',
+			r:$('#btn2').width()/1.9,
 			duration:1000
 		})
 
@@ -305,18 +306,18 @@ $(function(){
 			})
 
 			var btnCs =btn2S.paper.circle($('#btn2').width()/2,$('#btn2').height()/2,10).attr({
-				fill:'white',
+				fill: 'rgb(237, 195, 41)',
 				class:'btnCs'
 			})
 
 			anime({
 				targets:'.btnC',
-				r:$('#btn2').width()/2.5,
+				r:$('#btn2').width()/1.9,
 				duration:1000
 			})
 			anime({
 				targets:'.btnCs',
-				r:$('#btn2').width()/2.55,
+				r:$('#btn2').width()/1.85,
 				duration:2500
 			})
 
@@ -367,6 +368,9 @@ $(function(){
 			document.getElementById('poemTitle').innerHTML = '&nbsp'
 			document.getElementById('poemAuthor').innerHTML = '&nbsp'
 			document.getElementById('trans').innerHTML = '&nbsp'
+			
+			btn2S.selectAll('.btnC').remove()
+			btn2S.selectAll('.btnCs').remove()
 			if(poAuthor){
 				poAuthor = '&nbsp'
 			}
@@ -1089,15 +1093,15 @@ $(function(){
 	var finish = function(){
 
 
-		let btnCClick = anime({
-			targets:'.btnC',
-			fill:'red',
-			duration:2000
-		})
+		// let btnCClick = anime({
+		// 	targets:'.btnC',
+		// 	fill:'red',
+		// 	duration:2000
+		// })
 
-		var promise = btnCClick.finished.then(()=>{
-			alert('1')
-		});
+		// var promise = btnCClick.finished.then(()=>{
+		// 	// alert('1')
+		// });
 
 
 
