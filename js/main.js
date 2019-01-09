@@ -420,7 +420,7 @@ window.onload = function(){
 			addEvt(Array.from(document.querySelectorAll('.gaImg:last-child')))
 			//lo(document.querySelector('.gaImg:last-child'))
 		}
-		t.target.scrollIntoView({
+		document.getElementById('ausor').scrollIntoView({
 			behavior: 'smooth',
 			block: 'center'
 		})
