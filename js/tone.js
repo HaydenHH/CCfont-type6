@@ -203,6 +203,12 @@ var locationBank =
 						"穴",
 					],
 					"num": 8
+				},
+				{
+					"symbol": [
+						"symbol",
+					],
+					"num": 99
 				}
 
 
@@ -235,7 +241,7 @@ var locationBank =
 				{
 					"symbol":
 					[
-						"讠",
+						"讠","口","阝"
 					],
 					"num":4
 				},
@@ -247,17 +253,11 @@ var locationBank =
 					],
 					"num":6
 				},
+
 				{
 					"symbol":
 					[
-						"口","阝","目"
-					],
-					"num":7
-				},
-				{
-					"symbol":
-					[
-						"辶", "足", "癶", "至"
+						"辶", "足", "癶", "至","止"
 					],
 					"num":8
 				},
@@ -267,12 +267,6 @@ var locationBank =
 						"酉",
 					],
 					"num":9
-				},
-				{
-					"symbol": [
-						"酉",
-					],
-					"num": 9
 				}
 
 			]

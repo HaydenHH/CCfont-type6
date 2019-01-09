@@ -150,9 +150,14 @@ $(function(){
 	getBasicFromSVG('B6')
 	getBasicFromSVG('B7')
 	getBasicFromSVG('B8')
+	getBasicFromSVG('B99')
 
 	getBasicFromSVG('P1')
 	getBasicFromSVG('P2')
+	getBasicFromSVG('P3')
+	getBasicFromSVG('P4')
+	getBasicFromSVG('P6')
+	getBasicFromSVG('P8')
 
 
 
@@ -368,7 +373,7 @@ $(function(){
 			document.getElementById('poemTitle').innerHTML = '&nbsp'
 			document.getElementById('poemAuthor').innerHTML = '&nbsp'
 			document.getElementById('trans').innerHTML = '&nbsp'
-			
+
 			btn2S.selectAll('.btnC').remove()
 			btn2S.selectAll('.btnCs').remove()
 			if(poAuthor){
