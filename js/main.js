@@ -370,7 +370,7 @@ window.onload = function(){
 		}
 
 
-	window.onresize = ()=>{
+	screen.onorientationchange = ()=>{
 		document.location.reload()
 	}
 
@@ -380,6 +380,7 @@ window.onload = function(){
 	let createImg = link => `<img class="gaImg p-2 col-sm-6 col-lg-4 img-responsive" src="${link}">`;
 	let ranListSet = new Set()
 	const imgQ = imgLink.length;
+	lo(imgQ)
 	let loadQ = 6
 
 	do {
@@ -392,18 +393,21 @@ window.onload = function(){
 		$('#gallery').append(createImg(link))
 	}
 	
-	var Q = 0
+	var Q = 6
 	$('#gaBtn').click((t)=>{
 		
-		if(Q<imgQ-6){
+		if(Q<imgQ-9){
+			
 			Q = Q + 3
 		}else{
-			alert('SORRY,NO MORE IMAGE (´ﾟдﾟ`)')
+			alert('SORRY,YOUR BROSWER WILL BE TIRED (´ﾟдﾟ`)')
 			return false
 		}
 		
 		do {
-			ranListSet.add(imgLink[ranIndex(imgLink)])
+			let rIndex = ranIndex(imgLink)
+			ranList.splice(rIndex,1)
+			ranListSet.add(imgLink[rIndex])
 		} while (ranListSet.size < loadQ+Q);
 		
 		let arr = Array.from(ranListSet)
@@ -421,7 +425,7 @@ window.onload = function(){
 			block: 'center'
 		})
 		
-		
+		lo($('.gaImg').length)
 		
 	})
 
