@@ -1,6 +1,6 @@
 window.onload = function(){
 
-	
+
 
 	anime({
 		targets:'#logo',
@@ -11,7 +11,7 @@ window.onload = function(){
 	anime({
 		targets: '#beginSvg',
 		translateY:'50px',
-		
+
 		duration: 1500,
 		easing: 'linear'
 	})
@@ -239,7 +239,7 @@ window.onload = function(){
 						})
 						let moS = anime({
 							targets: `#pCirS${i}`,
-							
+
 							r: size-0.1,
 							delay:delay,
 							duration: 3500
@@ -248,12 +248,12 @@ window.onload = function(){
 							$('.pCir').fadeOut(300)
 						});
 					}
-					
+
 				}
 
 				$(window).one(createWave())
 
-				
+
 			}
 		});
 	})
@@ -299,12 +299,12 @@ window.onload = function(){
 					document.getElementById('beginSvg').removeEventListener('mousemove')
 				}
 				function go(tar, x, y, xT, yT) {
-					
+
 					let tarA = tar.animate({
 						transform: `tranlate(${x/xT},${y/yT})`
 					}, 700, mina.easein);
 
-					
+
 				}
 				let bGpShape = bSvg.selectAll('.bgShape')
 
@@ -325,14 +325,14 @@ window.onload = function(){
 					var goX = [cenX - offsetX] / 0.5,
 						goY = [cenY - offsetY] / 0.5;
 
-						
+
 					go(bGpShape[0], goX, goY, 10, 15)
 					go(bGpShape[1], -goX, -goY, 15, 15)
 					go(bGpShape[2], goX, -goY, 3, 25)
-					
+
 				})
 
-				
+
 			}
 			mouseMotion()
 
@@ -366,13 +366,22 @@ window.onload = function(){
 				}, 1500);
 			}
 			down = false;
-			
+
+		}
+
+		var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+		if(iOS){
+			screen.onorientationchange = ()=>{
+				document.location.reload()
+			}
+		}else{
+			window.onresize = ()=>{
+				document.location.reload()
+			}
 		}
 
 
-	screen.onorientationchange = ()=>{
-		document.location.reload()
-	}
+
 
 
 
@@ -392,30 +401,30 @@ window.onload = function(){
 	for(let link of ranList.values()){
 		$('#gallery').append(createImg(link))
 	}
-	
+
 	var Q = 6
 	$('#gaBtn').click((t)=>{
-		
+
 		if(Q<imgQ-9){
-			
+
 			Q = Q + 3
 		}else{
 			alert('SORRY,YOUR BROSWER WILL BE TIRED (´ﾟдﾟ`)')
 			return false
 		}
-		
+
 		do {
 			let rIndex = ranIndex(imgLink)
 			ranList.splice(rIndex,1)
 			ranListSet.add(imgLink[rIndex])
 		} while (ranListSet.size < loadQ+Q);
-		
+
 		let arr = Array.from(ranListSet)
 
 		let newLink = arr.slice(arr.length - 3, arr.length)
 		for(let link of newLink.values()){
 			let newLink = createImg(link)
-			
+
 			$('#gallery').append(newLink)
 			addEvt(Array.from(document.querySelectorAll('.gaImg:last-child')))
 			//lo(document.querySelector('.gaImg:last-child'))
@@ -424,13 +433,13 @@ window.onload = function(){
 			behavior: 'smooth',
 			block: 'center'
 		})
-		
+
 		lo($('.gaImg').length)
-		
+
 	})
 
 	let addEvt =(eles)=>{
-		
+
 		eles.forEach((t)=> {
 			t.addEventListener('click',cloBtn = (t)=>{
 			let href = t.target.src
@@ -470,10 +479,10 @@ window.onload = function(){
 					}, 1000);
 				})
 			})
-			
+
 			})
 		});
-	} 
+	}
 	addEvt(Array.from(document.getElementsByClassName('gaImg')))
 	//----------------
 
@@ -606,7 +615,7 @@ window.onload = function(){
 					duration:5000
 			})
 
-			
+
 
 			let obj = getAttr(t.target)[0]
 			const nameOfTone = ['Nature','Level','Rise','Fall&Rise','Fall']
@@ -756,7 +765,7 @@ window.onload = function(){
 						bGp.click(()=>{
 							clearTimeout(OP)
 							shapeClose()
-							
+
 						})
 					}
 			})
