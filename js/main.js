@@ -386,7 +386,7 @@ window.onload = function(){
 
 
 	//create Gallery
-	let createImg = link => `<a class="gaImg p-0 col-6 col-lg-4"><img class="img-fluid" src="${link}"></a>`;
+	let createImg = link => `<img class="img-fluid gaImg rounded my-auto  p-2 col-12 col-md-6 col-lg-4" src="${link}">`;
 	let ranListSet = new Set()
 	const imgQ = imgLink.length;
 	lo(imgQ)
@@ -399,7 +399,7 @@ window.onload = function(){
 	let ranList = Array.from(ranListSet);
 
 	for(let link of ranList.values()){
-		$('#gallery ul').append(createImg(link))
+		$('#gallery').append(createImg(link))
 	}
 
 	var Q = 6
