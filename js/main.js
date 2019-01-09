@@ -496,7 +496,7 @@ window.onload = function(){
 		height:'100px'
 	})
 
-	let nCir = svgNext.paper.circle(20,20,10).attr({
+	let nCir = svgNext.paper.circle(20,60,10).attr({
 		fill:'red',
 		id:'resetPoemBtn'
 	})
