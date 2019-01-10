@@ -171,20 +171,20 @@ window.onload = function(){
 		height:wh
 	})
 	let bCir = bSvg.paper.circle(x,y,r).attr({
-		class:'bgShape',
+		class:'bgShape Noprint',
 		fill:bgc,
 		opacity:0.8,
 		mixBlendMode:'overlay'
 	})
 	let bRect = bSvg.paper.rect(x,y-r,len,len).attr({
-		class:'bgShape',
+		class:'bgShape Noprint',
 		id:'bgRect',
 		fill:bgc,
 		mixBlendMode:'multiply',
 		transform:`rotate(0,${x2},${y2}) translate(${-r},0)`
 	})
 	let bTrg = bSvg.paper.polyline([x3,y3,len2]).attr({
-		class:'bgShape',
+		class:'bgShape Noprint',
 		transform:`rotate(30,${[x3]})`,
 		fill:bgc,
 		opacity:1,

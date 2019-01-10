@@ -60265,7 +60265,7 @@ var wordBank = [
         "word": "院",
         "strokes": "9",
         "pinyin": "yuàn",
-        "radicals": "阝"
+        "radicals": "廴"
 
 
     },
@@ -62359,7 +62359,7 @@ var wordBank = [
         "word": "者",
         "strokes": "8",
         "pinyin": "zhě",
-        "radicals": "聅"
+        "radicals": "人"
 
 
     },
